@@ -1,0 +1,22 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* The soft teal background from the design */
+body {
+  @apply bg-[#dce9e7] text-slate-800 font-sans antialiased;
+}
+
+/* Custom cards with the specific rounded corners from the design */
+.habitat-card {
+  @apply bg-white rounded-[2.5rem] p-8 shadow-sm border border-slate-50 transition-all;
+}
+
+/* The specific "Habitat Teal" used in buttons and accents */
+.bg-habitat-teal {
+  @apply bg-[#00696b];
+}
+
+.text-habitat-teal {
+  @apply text-[#00696b];
+}
