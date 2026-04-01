@@ -36,7 +36,7 @@
         </NuxtLink>
 
         <NuxtLink
-          :to="`${dashboardPath}#settings`"
+          :to="settingsPath"
           class="flex items-center space-x-3 text-slate-600 hover:text-[#00696b] font-medium p-2 rounded-lg transition-all"
         >
           <span>⚙️</span>
@@ -64,5 +64,10 @@ const dashboardPath = computed(() => {
   if (route.path.startsWith('/admin')) return '/admin/dashboard'
   if (route.path.startsWith('/landlord')) return '/landlord/dashboard'
   return '/tenant/dashboard'
+})
+
+const settingsPath = computed(() => {
+  if (route.path.startsWith('/tenant')) return '/tenant/settings'
+  return `${dashboardPath.value}#settings`
 })
 </script>
