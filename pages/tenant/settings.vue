@@ -117,12 +117,12 @@
               </button>
             </div>
 
-            <form class="grid grid-cols-1 sm:grid-cols-2 gap-4" @submit.prevent="onChangePassword">
-              <div class="space-y-2 sm:col-span-2">
+            <form class="max-w-lg grid grid-cols-1 gap-4" @submit.prevent="onChangePassword">
+              <div class="space-y-2">
                 <h3 class="text-base font-semibold text-slate-900">Change Password</h3>
               </div>
 
-              <div class="space-y-2 sm:col-span-2">
+              <div class="space-y-2">
                 <label for="current-password" class="text-sm font-medium text-slate-700">Current password</label>
                 <input
                   id="current-password"
@@ -158,7 +158,7 @@
                 />
               </div>
 
-              <div class="sm:col-span-2 flex justify-end">
+              <div class="flex justify-end">
                 <button
                   type="submit"
                   class="inline-flex items-center justify-center rounded-lg bg-slate-900 px-4 py-2 text-sm font-semibold text-white hover:bg-slate-700 transition-colors"
