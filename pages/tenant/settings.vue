@@ -205,11 +205,11 @@ function saveContactInfo() {
 }
 
 function onLogin() {
-  securityMessage.value = 'Login action selected.'
+  navigateTo('/login')
 }
 
 function onLogout() {
-  securityMessage.value = 'Logout action selected.'
+  navigateTo('/login')
 }
 
 function onChangePassword() {
