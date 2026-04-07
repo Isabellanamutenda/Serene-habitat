@@ -60,7 +60,7 @@ import GracePeriodCard from '~/components/landlord/GracePeriodCard.vue'
 import Rewards from '~/components/tenant/Rewards.vue'
 import PaymentHistory from '~/components/tenant/PaymentHistory.vue'
 
-const graceDaysRemaining = 5
+const graceDaysRemaining = 3
 
 const transactions = [
   { date: 'Oct 01, 2023', ref: 'MP7XW92K01', amount: 'Ksh 4,500.00', status: 'Completed' },
