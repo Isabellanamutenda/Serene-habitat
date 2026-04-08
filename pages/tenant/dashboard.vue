@@ -24,6 +24,13 @@
           <div class="text-xs font-semibold uppercase tracking-wide text-slate-500">Rent per Day</div>
           <div class="mt-2 text-slate-900 font-bold text-3xl leading-none">Ksh 4,500</div>
           <div class="mt-1 text-sm text-slate-500">Fully inclusive</div>
+          <button
+            type="button"
+            class="mt-4 w-full inline-flex items-center justify-center bg-slate-900 text-white py-2 rounded-lg font-semibold text-sm hover:bg-slate-700 transition-all"
+            @click="openPaymentModal"
+          >
+            Pay
+          </button>
           <NuxtLink
             to="/tenant/details"
             class="mt-4 w-full inline-flex items-center justify-center bg-[#00696b] text-white py-2 rounded-lg font-semibold text-sm hover:bg-[#004d4f] transition-all"
@@ -51,6 +58,51 @@
       </main>
     </div>
   </div>
+
+  <div
+    v-if="isPaymentModalOpen"
+    class="fixed inset-0 z-50 flex items-center justify-center bg-slate-900/60 p-4"
+    @click.self="closePaymentModal"
+  >
+    <section class="w-full max-w-md rounded-2xl bg-white p-6 shadow-2xl">
+      <header class="flex items-center justify-between gap-4">
+        <h2 class="text-xl font-bold text-slate-900">Pay Rent</h2>
+        <button
+          type="button"
+          class="rounded-lg border border-slate-300 px-3 py-1 text-sm font-semibold text-slate-600 hover:bg-slate-100"
+          @click="closePaymentModal"
+        >
+          Close
+        </button>
+      </header>
+
+      <form class="mt-5 space-y-4" @submit.prevent="submitPayment">
+        <div>
+          <label for="payment-amount" class="mb-2 block text-sm font-medium text-slate-700">Enter amount</label>
+          <input
+            id="payment-amount"
+            v-model.number="paymentAmount"
+            type="number"
+            min="1"
+            step="1"
+            placeholder="e.g. 4500"
+            class="w-full rounded-lg border border-slate-300 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-[#00696b]"
+          />
+        </div>
+
+        <p v-if="paymentMessage" class="text-sm" :class="paymentStatus === 'error' ? 'text-rose-600' : 'text-[#00696b]'">
+          {{ paymentMessage }}
+        </p>
+
+        <button
+          type="submit"
+          class="w-full rounded-lg bg-[#00696b] px-4 py-2 text-sm font-semibold text-white hover:bg-[#004d4f] transition-all"
+        >
+          Pay Now
+        </button>
+      </form>
+    </section>
+  </div>
 </template>
 
 <script setup lang="ts">
@@ -67,6 +119,11 @@ const transactions = [
   { date: 'Sep 30, 2023', ref: 'MP2RQ11L45', amount: 'Ksh 4,500.00', status: 'Completed' },
   { date: 'Sep 29, 2023', ref: 'MP8N55M92', amount: 'Ksh 4,500.00', status: 'Completed' }
 ]
+
+const isPaymentModalOpen = ref(false)
+const paymentAmount = ref<number | null>(null)
+const paymentMessage = ref('')
+const paymentStatus = ref<'success' | 'error'>('success')
 
 const currentHour = ref(new Date().getHours())
 let clockTimer: ReturnType<typeof setInterval> | undefined
@@ -86,4 +143,25 @@ const greeting = computed(() => {
   if (currentHour.value < 18) return 'Good afternoon'
   return 'Good evening'
 })
+
+function openPaymentModal() {
+  isPaymentModalOpen.value = true
+  paymentAmount.value = null
+  paymentMessage.value = ''
+}
+
+function closePaymentModal() {
+  isPaymentModalOpen.value = false
+}
+
+function submitPayment() {
+  if (!paymentAmount.value || paymentAmount.value <= 0) {
+    paymentStatus.value = 'error'
+    paymentMessage.value = 'Please enter a valid amount greater than 0.'
+    return
+  }
+
+  paymentStatus.value = 'success'
+  paymentMessage.value = `Payment of Ksh ${paymentAmount.value.toLocaleString()} submitted successfully.`
+}
 </script>
