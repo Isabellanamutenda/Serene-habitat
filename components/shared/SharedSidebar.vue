@@ -68,6 +68,7 @@ const dashboardPath = computed(() => {
 
 const settingsPath = computed(() => {
   if (route.path.startsWith('/tenant')) return '/tenant/settings'
+  if (route.path.startsWith('/landlord')) return '/landlord/settings'
   return `${dashboardPath.value}#settings`
 })
 </script>

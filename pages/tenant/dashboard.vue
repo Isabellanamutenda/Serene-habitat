@@ -24,13 +24,6 @@
           <div class="text-xs font-semibold uppercase tracking-wide text-slate-500">Rent per Day</div>
           <div class="mt-2 text-slate-900 font-bold text-3xl leading-none">Ksh 4,500</div>
           <div class="mt-1 text-sm text-slate-500">Fully inclusive</div>
-          <button
-            type="button"
-            class="mt-4 w-full inline-flex items-center justify-center bg-slate-900 text-white py-2 rounded-lg font-semibold text-sm hover:bg-slate-700 transition-all"
-            @click="openPaymentModal"
-          >
-            Pay
-          </button>
           <NuxtLink
             to="/tenant/details"
             class="mt-4 w-full inline-flex items-center justify-center bg-[#00696b] text-white py-2 rounded-lg font-semibold text-sm hover:bg-[#004d4f] transition-all"
@@ -46,7 +39,14 @@
         <div class="xl:col-span-7">
           <Rewards :points="850" :goal="1000" streak="12 Months" />
         </div>
-        <div class="xl:col-span-5">
+        <div class="xl:col-span-5 space-y-4">
+          <button
+            type="button"
+            class="self-start inline-flex items-center justify-center min-w-28 bg-slate-900 text-white px-5 py-2 rounded-lg font-semibold text-sm hover:bg-slate-700 transition-all"
+            @click="openPaymentModal"
+          >
+            Pay Rent
+          </button>
           <GracePeriodCard :days-remaining="graceDaysRemaining" />
         </div>
       </div>
@@ -69,14 +69,26 @@
         <h2 class="text-xl font-bold text-slate-900">Pay Rent</h2>
         <button
           type="button"
-          class="rounded-lg border border-slate-300 px-3 py-1 text-sm font-semibold text-slate-600 hover:bg-slate-100"
+          aria-label="Close payment modal"
+          class="inline-flex h-8 w-8 items-center justify-center rounded-lg border border-slate-300 text-lg font-semibold leading-none text-slate-600 hover:bg-slate-100"
           @click="closePaymentModal"
         >
-          Close
+          x
         </button>
       </header>
 
       <form class="mt-5 space-y-4" @submit.prevent="submitPayment">
+        <div>
+          <label for="payment-phone" class="mb-2 block text-sm font-medium text-slate-700">Phone number</label>
+          <input
+            id="payment-phone"
+            v-model="paymentPhone"
+            type="tel"
+            placeholder="e.g. +254 712 345 678"
+            class="w-full rounded-lg border border-slate-300 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-[#00696b]"
+          />
+        </div>
+
         <div>
           <label for="payment-amount" class="mb-2 block text-sm font-medium text-slate-700">Enter amount</label>
           <input
@@ -94,12 +106,21 @@
           {{ paymentMessage }}
         </p>
 
-        <button
-          type="submit"
-          class="w-full rounded-lg bg-[#00696b] px-4 py-2 text-sm font-semibold text-white hover:bg-[#004d4f] transition-all"
-        >
-          Pay Now
-        </button>
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-1">
+          <button
+            type="button"
+            class="w-full rounded-lg border border-slate-300 px-4 py-2 text-sm font-semibold text-slate-700 hover:bg-slate-100 transition-all"
+            @click="closePaymentModal"
+          >
+            Cancel
+          </button>
+          <button
+            type="submit"
+            class="w-full rounded-lg bg-[#00696b] px-4 py-2 text-sm font-semibold text-white hover:bg-[#004d4f] transition-all"
+          >
+            Pay Now
+          </button>
+        </div>
       </form>
     </section>
   </div>
@@ -121,6 +142,7 @@ const transactions = [
 ]
 
 const isPaymentModalOpen = ref(false)
+const paymentPhone = ref('')
 const paymentAmount = ref<number | null>(null)
 const paymentMessage = ref('')
 const paymentStatus = ref<'success' | 'error'>('success')
@@ -146,6 +168,7 @@ const greeting = computed(() => {
 
 function openPaymentModal() {
   isPaymentModalOpen.value = true
+  paymentPhone.value = ''
   paymentAmount.value = null
   paymentMessage.value = ''
 }
@@ -155,6 +178,12 @@ function closePaymentModal() {
 }
 
 function submitPayment() {
+  if (!paymentPhone.value.trim()) {
+    paymentStatus.value = 'error'
+    paymentMessage.value = 'Please enter a phone number.'
+    return
+  }
+
   if (!paymentAmount.value || paymentAmount.value <= 0) {
     paymentStatus.value = 'error'
     paymentMessage.value = 'Please enter a valid amount greater than 0.'
