@@ -13,7 +13,7 @@
 			<p class="mt-2 text-slate-500 text-sm sm:text-base">Monitor unit readiness, maintenance tickets, service requests, and rent collections.</p>
 		</header>
 
-		<div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+		<div id="units" class="grid grid-cols-1 md:grid-cols-3 gap-4">
 			<article class="bg-white rounded-2xl border border-slate-100 shadow-sm p-5">
 				<p class="text-sm text-slate-500">Open Tickets</p>
 				<p class="text-3xl font-semibold text-slate-800 mt-2">{{ openMaintenanceCount }}</p>
@@ -33,7 +33,7 @@
 		<p v-if="landlordMessage" class="text-sm font-medium text-[#00696b]">{{ landlordMessage }}</p>
 
 		<div class="grid grid-cols-1 xl:grid-cols-12 gap-6 items-start">
-			<section class="xl:col-span-7 bg-white rounded-2xl border border-slate-100 shadow-sm p-5 sm:p-6">
+			<section id="tenants" class="xl:col-span-7 bg-white rounded-2xl border border-slate-100 shadow-sm p-5 sm:p-6">
 				<header class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2">
 					<div>
 						<h2 class="text-xl font-semibold text-slate-900">Upcoming Payments</h2>
@@ -75,7 +75,7 @@
 				</div>
 			</section>
 
-			<section class="xl:col-span-5 bg-white rounded-2xl border border-slate-100 shadow-sm p-5 sm:p-6">
+			<section id="maintenance" class="xl:col-span-5 bg-white rounded-2xl border border-slate-100 shadow-sm p-5 sm:p-6">
 				<header>
 					<h2 class="text-xl font-semibold text-slate-900">Maintenance Queue</h2>
 					<p class="text-sm text-slate-500">Prioritize and resolve active maintenance requests.</p>
@@ -125,8 +125,52 @@
 			</div>
 		</div>
 
-		<div id="transactions">
+		<div id="financials">
+			<section class="bg-white rounded-2xl border border-slate-100 shadow-sm p-5 sm:p-6 mb-6">
+				<header class="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-3">
+					<div>
+						<h2 class="text-xl font-semibold text-slate-900">Monthly Rent Collected</h2>
+						<p class="text-sm text-slate-500">Track rent collection performance month by month.</p>
+					</div>
+					<div class="rounded-xl bg-[#e6f4f1] px-4 py-3">
+						<p class="text-xs font-semibold uppercase tracking-wide text-[#00696b]">Highest month collected</p>
+						<p class="mt-1 text-sm font-semibold text-slate-900">{{ highestCollectionMonth.month }} - {{ formatCurrency(highestCollectionMonth.amount) }}</p>
+					</div>
+				</header>
+
+				<div class="mt-3 flex items-center gap-4 text-xs font-semibold text-slate-600">
+					<div class="inline-flex items-center gap-2">
+						<span class="h-3 w-3 rounded-sm bg-[#00696b]" />
+						<span>Highest</span>
+					</div>
+					<div class="inline-flex items-center gap-2">
+						<span class="h-3 w-3 rounded-sm bg-[#d9f2ed] border border-[#bce5dc]" />
+						<span>Lowest</span>
+					</div>
+				</div>
+
+				<div class="mt-5">
+					<div class="h-64 border-b border-slate-100 flex items-end justify-between gap-2 sm:gap-3">
+						<div
+							v-for="item in monthlyCollections"
+							:key="item.month"
+							class="flex-1 min-w-0 flex flex-col items-center justify-end gap-2"
+						>
+							<div class="text-[11px] sm:text-xs text-slate-500 font-medium">{{ formatCompactCurrency(item.amount) }}</div>
+							<div
+								class="w-full max-w-12 rounded-t-lg transition-all"
+								:class="barColor(item)"
+								:style="{ height: `${barHeight(item.amount)}%` }"
+							/>
+							<p class="text-[11px] sm:text-xs font-semibold text-slate-600">{{ item.month }}</p>
+						</div>
+					</div>
+				</div>
+			</section>
+
+			<div id="transactions">
 			<PaymentHistory :transactions="transactions" />
+			</div>
 		</div>
 	</section>
 			</main>
@@ -164,6 +208,20 @@ type MaintenanceItem = {
 	status: 'Open' | 'Resolved'
 }
 
+type MonthlyCollection = {
+	month: string
+	amount: number
+}
+
+const monthlyCollections: MonthlyCollection[] = [
+	{ month: 'Jan', amount: 365000 },
+	{ month: 'Feb', amount: 392500 },
+	{ month: 'Mar', amount: 427000 },
+	{ month: 'Apr', amount: 401250 },
+	{ month: 'May', amount: 438500 },
+	{ month: 'Jun', amount: 417750 }
+]
+
 const upcomingPayments = ref<PaymentItem[]>([
 	{ id: 1, tenant: 'Ashley Tenant', unit: 'A-12', dueDate: 'Apr 10, 2026', amount: 'Ksh 45,000', reminderSent: false },
 	{ id: 2, tenant: 'John Kariuki', unit: 'B-03', dueDate: 'Apr 11, 2026', amount: 'Ksh 38,500', reminderSent: false },
@@ -179,6 +237,54 @@ const maintenanceQueue = ref<MaintenanceItem[]>([
 const landlordMessage = ref('')
 
 const openMaintenanceCount = computed(() => maintenanceQueue.value.filter((ticket) => ticket.status === 'Open').length)
+const highestCollectionMonth = computed<MonthlyCollection>(() => {
+	if (monthlyCollections.length === 0) {
+		return { month: 'N/A', amount: 0 }
+	}
+
+	return monthlyCollections.reduce((highest, current) => (current.amount > highest.amount ? current : highest))
+})
+
+const lowestCollectionMonth = computed<MonthlyCollection>(() => {
+	if (monthlyCollections.length === 0) {
+		return { month: 'N/A', amount: 0 }
+	}
+
+	return monthlyCollections.reduce((lowest, current) => (current.amount < lowest.amount ? current : lowest))
+})
+
+const maxCollectionAmount = computed(() => {
+	if (monthlyCollections.length === 0) return 0
+	return Math.max(...monthlyCollections.map((item) => item.amount))
+})
+
+function barHeight(amount: number) {
+	if (!maxCollectionAmount.value) return 0
+	return Math.round((amount / maxCollectionAmount.value) * 100)
+}
+
+function barColor(item: MonthlyCollection) {
+	if (item.month === highestCollectionMonth.value.month) return 'bg-[#00696b]'
+	if (item.month === lowestCollectionMonth.value.month) return 'bg-[#d9f2ed] border border-[#bce5dc]'
+	return 'bg-[#7cbfb7]'
+}
+
+function formatCurrency(amount: number) {
+	return new Intl.NumberFormat('en-KE', {
+		style: 'currency',
+		currency: 'KES',
+		maximumFractionDigits: 0
+	}).format(amount)
+}
+
+function formatCompactCurrency(amount: number) {
+	return new Intl.NumberFormat('en-KE', {
+		style: 'currency',
+		currency: 'KES',
+		notation: 'compact',
+		maximumFractionDigits: 1
+	}).format(amount)
+}
 
 function sendReminder(paymentId: number) {
 	upcomingPayments.value = upcomingPayments.value.map((payment) => {

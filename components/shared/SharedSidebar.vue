@@ -20,27 +20,13 @@
     >
       <nav class="flex flex-col space-y-2">
         <NuxtLink
-          :to="dashboardPath"
+          v-for="item in sidebarItems"
+          :key="item.label"
+          :to="item.to"
           class="flex items-center space-x-3 text-slate-600 hover:text-[#00696b] font-medium p-2 rounded-lg transition-all"
         >
-          <span>🏠</span>
-          <span>Home</span>
-        </NuxtLink>
-
-        <NuxtLink
-          :to="`${dashboardPath}#transactions`"
-          class="flex items-center space-x-3 text-slate-600 hover:text-[#00696b] font-medium p-2 rounded-lg transition-all"
-        >
-          <span>💳</span>
-          <span>Transactions</span>
-        </NuxtLink>
-
-        <NuxtLink
-          :to="settingsPath"
-          class="flex items-center space-x-3 text-slate-600 hover:text-[#00696b] font-medium p-2 rounded-lg transition-all"
-        >
-          <span>⚙️</span>
-          <span>Settings</span>
+          <span>{{ item.icon }}</span>
+          <span>{{ item.label }}</span>
         </NuxtLink>
       </nav>
 
@@ -76,5 +62,23 @@ const supportPath = computed(() => {
   if (route.path.startsWith('/tenant')) return '/tenant/settings#support-request'
   if (route.path.startsWith('/landlord')) return '/landlord/settings#support-request'
   return `${dashboardPath.value}#support-request`
+})
+
+const sidebarItems = computed(() => {
+  if (route.path.startsWith('/landlord')) {
+    return [
+      { label: 'Units', to: '/landlord/dashboard#units', icon: '🏢' },
+      { label: 'Tenants', to: '/landlord/dashboard#tenants', icon: '🧑‍🤝‍🧑' },
+      { label: 'Maintenance', to: '/landlord/dashboard#maintenance', icon: '🛠️' },
+      { label: 'Financials', to: '/landlord/dashboard#financials', icon: '💳' },
+      { label: 'Settings', to: settingsPath.value, icon: '⚙️' }
+    ]
+  }
+
+  return [
+    { label: 'Home', to: dashboardPath.value, icon: '🏠' },
+    { label: 'Transactions', to: `${dashboardPath.value}#transactions`, icon: '💳' },
+    { label: 'Settings', to: settingsPath.value, icon: '⚙️' }
+  ]
 })
 </script>
