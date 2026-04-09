@@ -3,7 +3,7 @@
     <main class="mx-auto flex min-h-screen w-full max-w-2xl items-center px-4 py-8 sm:px-6">
       <section class="w-full rounded-3xl border border-white/70 bg-white p-6 shadow-[0_20px_60px_rgba(15,23,42,0.1)] sm:p-8">
         <div class="mb-6 text-center">
-          <p class="text-sm font-semibold uppercase tracking-[0.3em] text-[#00696b]">Serene Habitat</p>
+          <p class="text-sm font-semibold uppercase tracking-[0.3em] text-[#00696b]">Rental Agency</p>
           <h1 class="mt-2 text-3xl font-bold text-slate-900">Log in</h1>
           <p class="mt-2 text-sm text-slate-500">Use your email, password, and role to continue.</p>
         </div>

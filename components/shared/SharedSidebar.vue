@@ -3,7 +3,7 @@
     class="w-full lg:w-64 shrink-0 bg-white border-b border-slate-100 lg:border-b-0 lg:border-r p-4 lg:p-6"
   >
     <div class="flex items-center justify-between">
-      <h2 class="text-[#00696b] font-bold text-lg sm:text-xl">The Serene Habitat</h2>
+      <h2 class="text-[#00696b] font-bold text-lg sm:text-xl">Rental Agency</h2>
       <button
         type="button"
         @click="isMenuCollapsed = !isMenuCollapsed"
