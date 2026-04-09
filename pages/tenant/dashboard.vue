@@ -190,7 +190,7 @@ function submitPayment() {
     return
   }
 
-  paymentStatus.value = 'success'
-  paymentMessage.value = `Payment of Ksh ${paymentAmount.value.toLocaleString()} submitted successfully.`
+  paymentMessage.value = ''
+  closePaymentModal()
 }
 </script>

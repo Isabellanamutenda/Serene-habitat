@@ -44,12 +44,12 @@
         </NuxtLink>
       </nav>
 
-      <button
-        type="button"
-        class="mt-4 w-full bg-[#00696b] text-white rounded-2xl font-semibold transition-all p-3"
+      <NuxtLink
+        :to="supportPath"
+        class="mt-4 w-full inline-flex items-center justify-center bg-[#00696b] text-white rounded-2xl font-semibold transition-all p-3"
       >
         Support Request
-      </button>
+      </NuxtLink>
     </div>
   </aside>
 </template>
@@ -70,5 +70,11 @@ const settingsPath = computed(() => {
   if (route.path.startsWith('/tenant')) return '/tenant/settings'
   if (route.path.startsWith('/landlord')) return '/landlord/settings'
   return `${dashboardPath.value}#settings`
+})
+
+const supportPath = computed(() => {
+  if (route.path.startsWith('/tenant')) return '/tenant/settings#support-request'
+  if (route.path.startsWith('/landlord')) return '/landlord/settings#support-request'
+  return `${dashboardPath.value}#support-request`
 })
 </script>
