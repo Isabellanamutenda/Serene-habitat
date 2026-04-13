@@ -21,14 +21,6 @@
     <p class="text-center text-xs font-semibold" :class="valueClass">
       {{ message }}
     </p>
-
-    <div class="flex items-center justify-center gap-2">
-      <span class="text-xs font-semibold text-slate-500 uppercase tracking-wide">Access Status</span>
-      <span class="inline-flex items-center gap-2 rounded-full px-3 py-1 text-xs font-bold uppercase" :class="accessStatusClass">
-        <span class="h-2 w-2 rounded-full" :class="accessDotClass"></span>
-        {{ accessStatusLabel }}
-      </span>
-    </div>
   </div>
 </template>
 
@@ -37,11 +29,10 @@ import { computed } from 'vue'
 
 const props = defineProps<{
   daysRemaining: number
-  accessStatus: 'locked' | 'active'
 }>()
 
-const isCritical = computed(() => props.daysRemaining <= 3)
-const isSafe = computed(() => props.daysRemaining >= 5)
+const isCritical = computed(() => props.daysRemaining <= 1)
+const isSafe = computed(() => props.daysRemaining >= 3)
 
 const stateLabel = computed(() => {
   if (isCritical.value) return 'Critical'
@@ -65,19 +56,5 @@ const message = computed(() => {
   if (isCritical.value) return 'Urgent action needed.'
   if (isSafe.value) return 'Grace window is healthy.'
   return 'Grace window is getting tighter.'
-})
-
-const accessStatusLabel = computed(() => {
-  return props.accessStatus === 'locked' ? 'Locked' : 'Active'
-})
-
-const accessStatusClass = computed(() => {
-  return props.accessStatus === 'locked'
-    ? 'bg-red-100 text-red-700'
-    : 'bg-green-100 text-green-700'
-})
-
-const accessDotClass = computed(() => {
-  return props.accessStatus === 'locked' ? 'bg-red-600' : 'bg-green-600'
 })
 </script>

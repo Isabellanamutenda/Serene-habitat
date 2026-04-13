@@ -47,7 +47,7 @@
           >
             Pay Rent
           </button>
-          <GracePeriodCard :days-remaining="graceDaysRemaining" :access-status="accessStatus" />
+          <GracePeriodCard :days-remaining="graceDaysRemaining" />
         </div>
       </div>
       <div id="transactions">
@@ -133,8 +133,7 @@ import GracePeriodCard from '~/components/landlord/GracePeriodCard.vue'
 import Rewards from '~/components/tenant/Rewards.vue'
 import PaymentHistory from '~/components/tenant/PaymentHistory.vue'
 
-const graceDaysRemaining = 3
-const accessStatus: 'locked' | 'active' = 'active'
+const graceDaysRemaining = 1
 
 const transactions = [
   { date: 'Oct 01, 2023', ref: 'MP7XW92K01', amount: 'Ksh 4,500.00', status: 'Completed' },

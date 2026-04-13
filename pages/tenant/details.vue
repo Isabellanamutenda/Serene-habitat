@@ -35,7 +35,7 @@
 
             <article class="card lg:col-span-4">
               <p class="text-sm text-slate-500">Grace Period</p>
-              <p class="text-3xl font-semibold text-green-600 mt-2">5 Days</p>
+              <p class="text-3xl font-semibold text-green-600 mt-2">3 Days</p>
               <p class="text-xs text-slate-500 mt-2">No penalties during this period</p>
             </article>
           </div>
