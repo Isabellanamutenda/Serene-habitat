@@ -3,7 +3,7 @@
     class="w-full lg:w-64 shrink-0 bg-white border-b border-slate-100 lg:border-b-0 lg:border-r p-4 lg:p-6"
   >
     <div class="flex items-center justify-between">
-      <h2 class="text-[#00696b] font-bold text-lg sm:text-xl">The Serene Habitat</h2>
+      <h2 class="text-[#00696b] font-bold text-lg sm:text-xl">Rental Agency</h2>
       <button
         type="button"
         @click="isMenuCollapsed = !isMenuCollapsed"
@@ -44,12 +44,12 @@
         </NuxtLink>
       </nav>
 
-      <button
-        type="button"
-        class="mt-4 w-full bg-[#00696b] text-white rounded-2xl font-semibold transition-all p-3"
+      <NuxtLink
+        :to="supportPath"
+        class="mt-4 w-full inline-flex items-center justify-center bg-[#00696b] text-white rounded-2xl font-semibold transition-all p-3"
       >
         Support Request
-      </button>
+      </NuxtLink>
     </div>
   </aside>
 </template>
@@ -68,6 +68,13 @@ const dashboardPath = computed(() => {
 
 const settingsPath = computed(() => {
   if (route.path.startsWith('/tenant')) return '/tenant/settings'
+  if (route.path.startsWith('/landlord')) return '/landlord/settings'
   return `${dashboardPath.value}#settings`
+})
+
+const supportPath = computed(() => {
+  if (route.path.startsWith('/tenant')) return '/tenant/settings#support-request'
+  if (route.path.startsWith('/landlord')) return '/landlord/settings#support-request'
+  return `${dashboardPath.value}#support-request`
 })
 </script>

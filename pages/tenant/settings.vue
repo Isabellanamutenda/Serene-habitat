@@ -170,6 +170,60 @@
 
             <p v-if="securityMessage" class="text-sm text-[#00696b]">{{ securityMessage }}</p>
           </section>
+
+          <section id="support-request" class="bg-white rounded-2xl border border-slate-100 shadow-sm p-5 sm:p-6 space-y-5">
+            <div>
+              <h2 class="text-xl font-semibold text-slate-900">Support Request</h2>
+              <p class="mt-1 text-sm text-slate-500">
+                Share your contact details and what support you need.
+              </p>
+            </div>
+
+            <form class="grid grid-cols-1 sm:grid-cols-2 gap-4" @submit.prevent="submitSupportRequest">
+              <div class="space-y-2">
+                <label for="support-email" class="text-sm font-medium text-slate-700">Email address</label>
+                <input
+                  id="support-email"
+                  v-model="supportEmail"
+                  type="email"
+                  placeholder="e.g. tenant@serenehabitat.com"
+                  class="w-full rounded-lg border border-slate-300 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-[#00696b]"
+                />
+              </div>
+
+              <div class="space-y-2">
+                <label for="support-contact" class="text-sm font-medium text-slate-700">Contact number</label>
+                <input
+                  id="support-contact"
+                  v-model="supportContact"
+                  type="tel"
+                  placeholder="e.g. +254 712 345 678"
+                  class="w-full rounded-lg border border-slate-300 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-[#00696b]"
+                />
+              </div>
+
+              <div class="space-y-2 sm:col-span-2">
+                <label for="support-message" class="text-sm font-medium text-slate-700">Request details</label>
+                <textarea
+                  id="support-message"
+                  v-model="supportRequest"
+                  rows="4"
+                  placeholder="Describe what you need help with"
+                  class="w-full rounded-lg border border-slate-300 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-[#00696b]"
+                />
+              </div>
+
+              <div class="sm:col-span-2 flex items-center justify-between gap-3 pt-1">
+                <p v-if="supportMessage" class="text-sm text-[#00696b]">{{ supportMessage }}</p>
+                <button
+                  type="submit"
+                  class="ml-auto inline-flex items-center justify-center rounded-lg bg-[#00696b] px-4 py-2 text-sm font-semibold text-white hover:bg-[#004d4f] transition-colors"
+                >
+                  Submit Request
+                </button>
+              </div>
+            </form>
+          </section>
         </section>
       </main>
     </div>
@@ -190,6 +244,10 @@ const securityMessage = ref('')
 const currentPassword = ref('')
 const newPassword = ref('')
 const confirmPassword = ref('')
+const supportEmail = ref('')
+const supportContact = ref('')
+const supportRequest = ref('')
+const supportMessage = ref('')
 
 function onPhotoSelected(event: Event) {
   const target = event.target as HTMLInputElement
@@ -205,11 +263,11 @@ function saveContactInfo() {
 }
 
 function onLogin() {
-  securityMessage.value = 'Login action selected.'
+  navigateTo('/login')
 }
 
 function onLogout() {
-  securityMessage.value = 'Logout action selected.'
+  navigateTo('/login')
 }
 
 function onChangePassword() {
@@ -233,5 +291,15 @@ function onChangePassword() {
   currentPassword.value = ''
   newPassword.value = ''
   confirmPassword.value = ''
+}
+
+function submitSupportRequest() {
+  if (!supportEmail.value || !supportContact.value || !supportRequest.value.trim()) {
+    supportMessage.value = 'Please fill in email, contact number, and request details.'
+    return
+  }
+
+  supportMessage.value = 'Support request submitted. Our team will contact you shortly.'
+  supportRequest.value = ''
 }
 </script>
