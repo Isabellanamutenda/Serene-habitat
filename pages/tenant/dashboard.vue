@@ -21,7 +21,7 @@
 
       <div class="flex flex-col sm:flex-row gap-4 w-full xl:w-auto">
         <div class="w-full sm:w-auto bg-white rounded-2xl border border-slate-100 shadow-sm p-5 sm:p-6">
-          <div class="text-xs font-semibold uppercase tracking-wide text-slate-500">Rent per Day</div>
+          <div class="text-xs font-semibold uppercase tracking-wide text-slate-500">Rent per Month</div>
           <div class="mt-2 text-slate-900 font-bold text-3xl leading-none">Ksh 4,500</div>
           <div class="mt-1 text-sm text-slate-500">Fully inclusive</div>
           <NuxtLink
@@ -47,7 +47,7 @@
           >
             Pay Rent
           </button>
-          <GracePeriodCard :days-remaining="graceDaysRemaining" />
+          <GracePeriodCard :days-remaining="graceDaysRemaining" :access-status="accessStatus" />
         </div>
       </div>
       <div id="transactions">
@@ -134,6 +134,7 @@ import Rewards from '~/components/tenant/Rewards.vue'
 import PaymentHistory from '~/components/tenant/PaymentHistory.vue'
 
 const graceDaysRemaining = 3
+const accessStatus: 'locked' | 'active' = 'active'
 
 const transactions = [
   { date: 'Oct 01, 2023', ref: 'MP7XW92K01', amount: 'Ksh 4,500.00', status: 'Completed' },
