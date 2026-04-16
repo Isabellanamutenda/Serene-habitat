@@ -1,6 +1,6 @@
 <template>
   <div class="min-h-screen bg-[#dce9e7] text-slate-800 flex flex-col lg:flex-row">
-    <Sidebar />
+    <LandlordSidebar />
 
     <div class="flex-1 flex flex-col">
       <main class="p-4 sm:p-6 flex-1">
@@ -107,7 +107,7 @@
 
 <script setup lang="ts">
 import { ref } from 'vue'
-import Sidebar from '~/components/shared/SharedSidebar.vue'
+import LandlordSidebar from '~/components/landlord/LandlordSidebar.vue'
 
 const securityMessage = ref('')
 const currentPassword = ref('')
