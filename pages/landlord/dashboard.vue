@@ -168,7 +168,7 @@
 				</div>
 			</section>
 
-			<div>
+			<div id="transactions">
 				<PaymentHistory :transactions="transactions" />
 			</div>
 		</div>
