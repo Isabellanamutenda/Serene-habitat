@@ -31,8 +31,8 @@ const props = defineProps<{
   daysRemaining: number
 }>()
 
-const isCritical = computed(() => props.daysRemaining <= 3)
-const isSafe = computed(() => props.daysRemaining >= 5)
+const isCritical = computed(() => props.daysRemaining <= 1)
+const isSafe = computed(() => props.daysRemaining >= 3)
 
 const stateLabel = computed(() => {
   if (isCritical.value) return 'Critical'

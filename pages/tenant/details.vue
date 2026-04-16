@@ -22,7 +22,7 @@
 
           <div class="grid grid-cols-1 lg:grid-cols-12 gap-4">
             <article class="card lg:col-span-4">
-              <p class="text-sm text-slate-500">Rent Per Day</p>
+              <p class="text-sm text-slate-500">Rent Per Month</p>
               <p class="text-3xl font-semibold text-slate-900 mt-2">Ksh 4,500</p>
               <p class="text-xs text-slate-500 mt-2">Includes utilities and maintenance</p>
             </article>
@@ -35,7 +35,7 @@
 
             <article class="card lg:col-span-4">
               <p class="text-sm text-slate-500">Grace Period</p>
-              <p class="text-3xl font-semibold text-green-600 mt-2">5 Days</p>
+              <p class="text-3xl font-semibold text-green-600 mt-2">3 Days</p>
               <p class="text-xs text-slate-500 mt-2">No penalties during this period</p>
             </article>
           </div>
