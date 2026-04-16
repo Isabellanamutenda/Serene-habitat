@@ -1,13 +1,13 @@
 <template>
 	<div class="min-h-screen bg-[#dce9e7] text-slate-800 flex flex-col lg:flex-row">
 		<!-- Sidebar -->
-		<Sidebar />
+		<LandlordSidebar />
 
 		<!-- Main content -->
 		<div class="flex-1 flex flex-col">
 			<!-- Page content -->
 			<main class="p-4 sm:p-6 flex-1">
-	<section class="max-w-6xl mx-auto space-y-6">
+	<section id="overview" class="max-w-6xl mx-auto space-y-6 scroll-mt-6">
 		<header>
 			<h1 class="text-3xl sm:text-4xl font-bold text-slate-900">Landlord Dashboard</h1>
 			<p class="mt-2 text-slate-500 text-sm sm:text-base">Monitor unit readiness, maintenance tickets, service requests, and rent collections.</p>
@@ -33,7 +33,7 @@
 		<p v-if="landlordMessage" class="text-sm font-medium text-[#00696b]">{{ landlordMessage }}</p>
 
 		<div class="grid grid-cols-1 xl:grid-cols-12 gap-6 items-start">
-			<section class="xl:col-span-7 bg-white rounded-2xl border border-slate-100 shadow-sm p-5 sm:p-6">
+			<section id="tenants" class="xl:col-span-7 bg-white rounded-2xl border border-slate-100 shadow-sm p-5 sm:p-6 scroll-mt-6">
 				<header class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2">
 					<div>
 						<h2 class="text-xl font-semibold text-slate-900">Upcoming Payments</h2>
@@ -75,7 +75,7 @@
 				</div>
 			</section>
 
-			<section class="xl:col-span-5 bg-white rounded-2xl border border-slate-100 shadow-sm p-5 sm:p-6">
+			<section id="maintenance" class="xl:col-span-5 bg-white rounded-2xl border border-slate-100 shadow-sm p-5 sm:p-6 scroll-mt-6">
 				<header>
 					<h2 class="text-xl font-semibold text-slate-900">Maintenance Queue</h2>
 					<p class="text-sm text-slate-500">Prioritize and resolve active maintenance requests.</p>
@@ -119,13 +119,13 @@
 			</section>
 		</div>
 
-		<div class="grid grid-cols-1 xl:grid-cols-12 gap-6 items-start">
+		<div id="units" class="grid grid-cols-1 xl:grid-cols-12 gap-6 items-start scroll-mt-6">
 			<div class="xl:col-span-5">
 				<LockControl unit="402" status="Locked" lastActivity="2 mins ago" />
 			</div>
 		</div>
 
-		<div id="transactions">
+		<div id="financials" class="scroll-mt-6">
 			<PaymentHistory :transactions="transactions" />
 		</div>
 	</section>
@@ -136,7 +136,7 @@
 
 <script setup lang="ts">
 import { computed, ref } from 'vue'
-import Sidebar from '~/components/shared/SharedSidebar.vue'
+import LandlordSidebar from '~/components/landlord/LandlordSidebar.vue'
 import LockControl from '~/components/tenant/LockControl.vue'
 import PaymentHistory from '~/components/tenant/PaymentHistory.vue'
 
