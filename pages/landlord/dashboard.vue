@@ -125,7 +125,70 @@
 			</div>
 		</div>
 
+		<section class="bg-white rounded-2xl border border-slate-100 shadow-sm p-5 sm:p-6 space-y-4">
+			<div>
+				<h2 class="text-xl font-semibold text-slate-900">Property Summary</h2>
+				<p class="text-sm text-slate-500">Quick view of your current portfolio occupancy performance.</p>
+			</div>
+
+			<div class="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-5 gap-4">
+				<article class="rounded-xl border border-slate-100 bg-slate-50 p-4">
+					<p class="text-xs uppercase tracking-wide text-slate-500">Total Properties</p>
+					<p class="mt-2 text-2xl font-semibold text-slate-900">{{ totalProperties }}</p>
+				</article>
+
+				<article class="rounded-xl border border-slate-100 bg-slate-50 p-4">
+					<p class="text-xs uppercase tracking-wide text-slate-500">Total Units</p>
+					<p class="mt-2 text-2xl font-semibold text-slate-900">{{ totalUnits }}</p>
+				</article>
+
+				<article class="rounded-xl border border-slate-100 bg-slate-50 p-4">
+					<p class="text-xs uppercase tracking-wide text-slate-500">Occupied Units</p>
+					<p class="mt-2 text-2xl font-semibold text-emerald-700">{{ occupiedUnits }}</p>
+				</article>
+
+				<article class="rounded-xl border border-slate-100 bg-slate-50 p-4">
+					<p class="text-xs uppercase tracking-wide text-slate-500">Vacant Units</p>
+					<p class="mt-2 text-2xl font-semibold text-amber-700">{{ vacantUnits }}</p>
+				</article>
+
+				<article class="rounded-xl border border-slate-100 bg-slate-50 p-4">
+					<p class="text-xs uppercase tracking-wide text-slate-500">Occupancy Rate</p>
+					<p class="mt-2 text-2xl font-semibold text-[#00696b]">{{ occupancyRate }}%</p>
+				</article>
+			</div>
+		</section>
+
 		<div id="financials" class="scroll-mt-6">
+			<section class="bg-white rounded-2xl border border-slate-100 shadow-sm p-5 sm:p-6 mb-6 space-y-4">
+				<div>
+					<h2 class="text-xl font-semibold text-slate-900">Financial Overview</h2>
+					<p class="text-sm text-slate-500">Summary of your rental income and outstanding balances.</p>
+				</div>
+
+				<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+					<article class="rounded-xl border border-slate-100 bg-slate-50 p-4">
+						<p class="text-xs uppercase tracking-wide text-slate-500">Total Payments (All Time)</p>
+						<p class="mt-2 text-2xl font-semibold text-slate-900">{{ formatCurrency(totalPaymentsAllTime) }}</p>
+					</article>
+
+					<article class="rounded-xl border border-slate-100 bg-slate-50 p-4">
+						<p class="text-xs uppercase tracking-wide text-slate-500">Total Collected (This Month)</p>
+						<p class="mt-2 text-2xl font-semibold text-emerald-700">{{ formatCurrency(totalCollectedThisMonth) }}</p>
+					</article>
+
+					<article class="rounded-xl border border-slate-100 bg-slate-50 p-4">
+						<p class="text-xs uppercase tracking-wide text-slate-500">Total Expected Rent</p>
+						<p class="mt-2 text-2xl font-semibold text-slate-900">{{ formatCurrency(totalExpectedRent) }}</p>
+					</article>
+
+					<article class="rounded-xl border border-slate-100 bg-slate-50 p-4">
+						<p class="text-xs uppercase tracking-wide text-slate-500">Total Outstanding</p>
+						<p class="mt-2 text-2xl font-semibold text-rose-700">{{ formatCurrency(totalOutstanding) }}</p>
+					</article>
+				</div>
+			</section>
+
 			<section class="bg-white rounded-2xl border border-slate-100 shadow-sm p-5 sm:p-6 mb-6">
 				<header class="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-3">
 					<div>
@@ -213,6 +276,13 @@ type MonthlyCollection = {
 	amount: number
 }
 
+type PropertySummaryItem = {
+	id: number
+	name: string
+	totalUnits: number
+	occupiedUnits: number
+}
+
 const monthlyCollections: MonthlyCollection[] = [
 	{ month: 'Jan', amount: 365000 },
 	{ month: 'Feb', amount: 392500 },
@@ -221,6 +291,24 @@ const monthlyCollections: MonthlyCollection[] = [
 	{ month: 'May', amount: 438500 },
 	{ month: 'Jun', amount: 417750 }
 ]
+
+const propertyPortfolio = ref<PropertySummaryItem[]>([
+	{ id: 1, name: 'Serene Heights', totalUnits: 24, occupiedUnits: 21 },
+	{ id: 2, name: 'Maple Residency', totalUnits: 18, occupiedUnits: 15 },
+	{ id: 3, name: 'Cedar Apartments', totalUnits: 30, occupiedUnits: 26 }
+])
+
+type RentExpectation = {
+	property: string
+	monthlyRent: number
+	occupiedUnits: number
+}
+
+const rentExpectations = ref<RentExpectation[]>([
+	{ property: 'Serene Heights', monthlyRent: 45000, occupiedUnits: 21 },
+	{ property: 'Maple Residency', monthlyRent: 38500, occupiedUnits: 15 },
+	{ property: 'Cedar Apartments', monthlyRent: 41250, occupiedUnits: 26 }
+])
 
 const upcomingPayments = ref<PaymentItem[]>([
 	{ id: 1, tenant: 'Ashley Tenant', unit: 'A-12', dueDate: 'Apr 10, 2026', amount: 'Ksh 45,000', reminderSent: false },
@@ -235,6 +323,35 @@ const maintenanceQueue = ref<MaintenanceItem[]>([
 ])
 
 const landlordMessage = ref('')
+
+const totalProperties = computed(() => propertyPortfolio.value.length)
+const totalUnits = computed(() => propertyPortfolio.value.reduce((sum, property) => sum + property.totalUnits, 0))
+const occupiedUnits = computed(() => propertyPortfolio.value.reduce((sum, property) => sum + property.occupiedUnits, 0))
+const vacantUnits = computed(() => totalUnits.value - occupiedUnits.value)
+const occupancyRate = computed(() => {
+	if (totalUnits.value === 0) return '0.0'
+	return ((occupiedUnits.value / totalUnits.value) * 100).toFixed(1)
+})
+
+const totalPaymentsAllTime = computed(() => {
+	return transactions.reduce((sum, transaction) => {
+		const amount = parseInt(transaction.amount.replace(/[^0-9]/g, ''))
+		return sum + amount
+	}, 0)
+})
+
+const totalCollectedThisMonth = computed(() => {
+	const april = monthlyCollections.find((m) => m.month === 'Apr')
+	return april ? april.amount : 0
+})
+
+const totalExpectedRent = computed(() => {
+	return rentExpectations.value.reduce((sum, rent) => sum + rent.monthlyRent * rent.occupiedUnits, 0)
+})
+
+const totalOutstanding = computed(() => {
+	return totalExpectedRent.value - totalCollectedThisMonth.value
+})
 
 const openMaintenanceCount = computed(() => maintenanceQueue.value.filter((ticket) => ticket.status === 'Open').length)
 const highestCollectionMonth = computed<MonthlyCollection>(() => {
