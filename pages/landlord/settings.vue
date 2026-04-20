@@ -9,7 +9,7 @@
             <div>
               <h1 class="text-3xl sm:text-4xl font-bold text-slate-900">Settings</h1>
               <p class="mt-2 text-slate-500 text-sm sm:text-base">
-                Manage your account access and password security.
+                Manage your landlord profile, account access, and password security.
               </p>
             </div>
             <NuxtLink
@@ -19,6 +19,67 @@
               Back to Dashboard
             </NuxtLink>
           </header>
+
+          <section class="bg-white rounded-2xl border border-slate-100 shadow-sm p-5 sm:p-6 space-y-5">
+            <div>
+              <h2 class="text-xl font-semibold text-slate-900">Landlord Profile</h2>
+              <p class="mt-1 text-sm text-slate-500">
+                Review and update your landlord identification and contact details.
+              </p>
+            </div>
+
+            <form class="grid grid-cols-1 sm:grid-cols-2 gap-4" @submit.prevent="saveProfileDetails">
+              <div class="space-y-2">
+                <label for="landlord-id" class="text-sm font-medium text-slate-700">ID</label>
+                <input
+                  id="landlord-id"
+                  v-model="landlordId"
+                  type="text"
+                  class="w-full rounded-lg border border-slate-300 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-[#00696b]"
+                />
+              </div>
+
+              <div class="space-y-2">
+                <label for="landlord-name" class="text-sm font-medium text-slate-700">Name</label>
+                <input
+                  id="landlord-name"
+                  v-model="landlordName"
+                  type="text"
+                  class="w-full rounded-lg border border-slate-300 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-[#00696b]"
+                />
+              </div>
+
+              <div class="space-y-2">
+                <label for="landlord-phone" class="text-sm font-medium text-slate-700">Phone</label>
+                <input
+                  id="landlord-phone"
+                  v-model="landlordPhone"
+                  type="tel"
+                  class="w-full rounded-lg border border-slate-300 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-[#00696b]"
+                />
+              </div>
+
+              <div class="space-y-2">
+                <label for="landlord-email" class="text-sm font-medium text-slate-700">Email</label>
+                <input
+                  id="landlord-email"
+                  v-model="landlordEmail"
+                  type="email"
+                  class="w-full rounded-lg border border-slate-300 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-[#00696b]"
+                />
+              </div>
+
+              <div class="sm:col-span-2 flex items-center justify-between gap-3 pt-1">
+                <p v-if="profileMessage" class="text-sm text-[#00696b]">{{ profileMessage }}</p>
+                <button
+                  type="submit"
+                  class="ml-auto inline-flex items-center justify-center rounded-lg bg-[#00696b] px-4 py-2 text-sm font-semibold text-white hover:bg-[#004d4f] transition-colors"
+                >
+                  Save Profile
+                </button>
+              </div>
+            </form>
+          </section>
 
           <section class="bg-white rounded-2xl border border-slate-100 shadow-sm p-5 sm:p-6 space-y-5">
             <div>
@@ -109,10 +170,25 @@
 import { ref } from 'vue'
 import LandlordSidebar from '~/components/landlord/LandlordSidebar.vue'
 
+const landlordId = ref('LND-1001')
+const landlordName = ref('Ashley Namutenda')
+const landlordPhone = ref('+254 712 345 678')
+const landlordEmail = ref('ashley@serenehabitat.com')
+
+const profileMessage = ref('')
 const securityMessage = ref('')
 const currentPassword = ref('')
 const newPassword = ref('')
 const confirmPassword = ref('')
+
+function saveProfileDetails() {
+  if (!landlordId.value || !landlordName.value || !landlordPhone.value || !landlordEmail.value) {
+    profileMessage.value = 'Please complete ID, name, phone, and email.'
+    return
+  }
+
+  profileMessage.value = 'Landlord profile updated successfully.'
+}
 
 function onLogin() {
   navigateTo('/login')
