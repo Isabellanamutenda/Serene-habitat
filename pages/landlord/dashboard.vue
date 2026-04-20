@@ -125,8 +125,140 @@
 			</div>
 		</div>
 
+		<section class="bg-white rounded-2xl border border-slate-100 shadow-sm p-5 sm:p-6 space-y-4">
+			<div>
+				<h2 class="text-xl font-semibold text-slate-900">Property Summary</h2>
+				<p class="text-sm text-slate-500">Quick view of your current portfolio occupancy performance.</p>
+			</div>
+
+			<div class="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-5 gap-4">
+				<article class="rounded-xl border border-slate-100 bg-slate-50 p-4">
+					<p class="text-xs uppercase tracking-wide text-slate-500">Total Properties</p>
+					<p class="mt-2 text-2xl font-semibold text-slate-900">{{ totalProperties }}</p>
+				</article>
+
+				<article class="rounded-xl border border-slate-100 bg-slate-50 p-4">
+					<p class="text-xs uppercase tracking-wide text-slate-500">Total Units</p>
+					<p class="mt-2 text-2xl font-semibold text-slate-900">{{ totalUnits }}</p>
+				</article>
+
+				<article class="rounded-xl border border-slate-100 bg-slate-50 p-4">
+					<p class="text-xs uppercase tracking-wide text-slate-500">Occupied Units</p>
+					<p class="mt-2 text-2xl font-semibold text-emerald-700">{{ occupiedUnits }}</p>
+				</article>
+
+				<article class="rounded-xl border border-slate-100 bg-slate-50 p-4">
+					<p class="text-xs uppercase tracking-wide text-slate-500">Vacant Units</p>
+					<p class="mt-2 text-2xl font-semibold text-amber-700">{{ vacantUnits }}</p>
+				</article>
+
+				<article class="rounded-xl border border-slate-100 bg-slate-50 p-4">
+					<p class="text-xs uppercase tracking-wide text-slate-500">Occupancy Rate</p>
+					<p class="mt-2 text-2xl font-semibold text-[#00696b]">{{ occupancyRate }}%</p>
+				</article>
+			</div>
+		</section>
+
+		<section id="property-breakdown" class="bg-white rounded-2xl border border-slate-100 shadow-sm p-5 sm:p-6 space-y-4 scroll-mt-6">
+			<div>
+				<h2 class="text-xl font-semibold text-slate-900">Property Breakdown</h2>
+				<p class="text-sm text-slate-500">Detailed property-level view for units and monthly rent totals.</p>
+			</div>
+
+			<div class="overflow-x-auto">
+				<table class="min-w-full text-left text-sm">
+					<thead>
+						<tr class="border-b border-slate-100 text-slate-500">
+							<th class="py-2 pr-4 font-medium">Property Name</th>
+							<th class="py-2 pr-4 font-medium">Location</th>
+							<th class="py-2 pr-4 font-medium">Total Units</th>
+							<th class="py-2 pr-4 font-medium">Occupied Units</th>
+							<th class="py-2 font-medium">Monthly Rent Total</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr v-for="property in propertyPortfolio" :key="property.id" class="border-b border-slate-50">
+							<td class="py-3 pr-4 font-semibold text-slate-900">{{ property.name }}</td>
+							<td class="py-3 pr-4 text-slate-700">{{ property.location }}</td>
+							<td class="py-3 pr-4 text-slate-700">{{ property.totalUnits }}</td>
+							<td class="py-3 pr-4 text-emerald-700 font-semibold">{{ property.occupiedUnits }}</td>
+							<td class="py-3 font-semibold text-[#00696b]">{{ formatCurrency(property.monthlyRentTotal) }}</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+		</section>
+
 		<div id="financials" class="scroll-mt-6">
-			<PaymentHistory :transactions="transactions" />
+			<section class="bg-white rounded-2xl border border-slate-100 shadow-sm p-5 sm:p-6 mb-6 space-y-4">
+				<div>
+					<h2 class="text-xl font-semibold text-slate-900">Financial Summary</h2>
+					<p class="text-sm text-slate-500">Quick overview of your financial performance this month.</p>
+				</div>
+
+				<div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+					<article class="rounded-xl border border-slate-100 bg-slate-50 p-4">
+						<p class="text-xs uppercase tracking-wide text-slate-500">Total Expected Rent</p>
+						<p class="mt-2 text-2xl font-semibold text-slate-900">{{ formatCurrency(totalExpectedRent) }}</p>
+					</article>
+
+					<article class="rounded-xl border border-slate-100 bg-slate-50 p-4">
+						<p class="text-xs uppercase tracking-wide text-slate-500">Total Collected</p>
+						<p class="mt-2 text-2xl font-semibold text-emerald-700">{{ formatCurrency(totalCollectedThisMonth) }}</p>
+					</article>
+
+					<article class="rounded-xl border border-slate-100 bg-slate-50 p-4">
+						<p class="text-xs uppercase tracking-wide text-slate-500">Total Outstanding</p>
+						<p class="mt-2 text-2xl font-semibold text-rose-700">{{ formatCurrency(totalOutstandingArrears) }}</p>
+					</article>
+				</div>
+			</section>
+
+			<section class="bg-white rounded-2xl border border-slate-100 shadow-sm p-5 sm:p-6 mb-6">
+				<header class="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-3">
+					<div>
+						<h2 class="text-xl font-semibold text-slate-900">Monthly Rent Collected</h2>
+						<p class="text-sm text-slate-500">Track rent collection performance month by month.</p>
+					</div>
+					<div class="rounded-xl bg-[#e6f4f1] px-4 py-3">
+						<p class="text-xs font-semibold uppercase tracking-wide text-[#00696b]">Highest month collected</p>
+						<p class="mt-1 text-sm font-semibold text-slate-900">{{ highestCollectionMonth.month }} - {{ formatCurrency(highestCollectionMonth.amount) }}</p>
+					</div>
+				</header>
+
+				<div class="mt-3 flex items-center gap-4 text-xs font-semibold text-slate-600">
+					<div class="inline-flex items-center gap-2">
+						<span class="h-3 w-3 rounded-sm bg-[#00696b]" />
+						<span>Highest</span>
+					</div>
+					<div class="inline-flex items-center gap-2">
+						<span class="h-3 w-3 rounded-sm bg-[#d9f2ed] border border-[#bce5dc]" />
+						<span>Lowest</span>
+					</div>
+				</div>
+
+				<div class="mt-5">
+					<div class="h-64 border-b border-slate-100 flex items-end justify-between gap-2 sm:gap-3">
+						<div
+							v-for="item in monthlyCollections"
+							:key="item.month"
+							class="flex-1 min-w-0 flex flex-col items-center justify-end gap-2"
+						>
+							<div class="text-[11px] sm:text-xs text-slate-500 font-medium">{{ formatCompactCurrency(item.amount) }}</div>
+							<div
+								class="w-full max-w-12 rounded-t-lg transition-all"
+								:class="barColor(item)"
+								:style="{ height: `${barHeight(item.amount)}%` }"
+							/>
+							<p class="text-[11px] sm:text-xs font-semibold text-slate-600">{{ item.month }}</p>
+						</div>
+					</div>
+				</div>
+			</section>
+
+			<div id="transactions">
+				<PaymentHistory :transactions="transactions" />
+			</div>
 		</div>
 	</section>
 			</main>
@@ -164,6 +296,35 @@ type MaintenanceItem = {
 	status: 'Open' | 'Resolved'
 }
 
+type MonthlyCollection = {
+	month: string
+	amount: number
+}
+
+type PropertySummaryItem = {
+	id: number
+	name: string
+	location: string
+	totalUnits: number
+	occupiedUnits: number
+	monthlyRentTotal: number
+}
+
+const monthlyCollections: MonthlyCollection[] = [
+	{ month: 'Jan', amount: 365000 },
+	{ month: 'Feb', amount: 392500 },
+	{ month: 'Mar', amount: 427000 },
+	{ month: 'Apr', amount: 401250 },
+	{ month: 'May', amount: 438500 },
+	{ month: 'Jun', amount: 417750 }
+]
+
+const propertyPortfolio = ref<PropertySummaryItem[]>([
+	{ id: 1, name: 'Serene Heights', location: 'Westlands, Nairobi', totalUnits: 24, occupiedUnits: 21, monthlyRentTotal: 1080000 },
+	{ id: 2, name: 'Maple Residency', location: 'Kilimani, Nairobi', totalUnits: 18, occupiedUnits: 15, monthlyRentTotal: 810000 },
+	{ id: 3, name: 'Cedar Apartments', location: 'South B, Nairobi', totalUnits: 30, occupiedUnits: 26, monthlyRentTotal: 1350000 }
+])
+
 const upcomingPayments = ref<PaymentItem[]>([
 	{ id: 1, tenant: 'Ashley Tenant', unit: 'A-12', dueDate: 'Apr 10, 2026', amount: 'Ksh 45,000', reminderSent: false },
 	{ id: 2, tenant: 'John Kariuki', unit: 'B-03', dueDate: 'Apr 11, 2026', amount: 'Ksh 38,500', reminderSent: false },
@@ -178,7 +339,68 @@ const maintenanceQueue = ref<MaintenanceItem[]>([
 
 const landlordMessage = ref('')
 
+const totalProperties = computed(() => propertyPortfolio.value.length)
+const totalUnits = computed(() => propertyPortfolio.value.reduce((sum, property) => sum + property.totalUnits, 0))
+const occupiedUnits = computed(() => propertyPortfolio.value.reduce((sum, property) => sum + property.occupiedUnits, 0))
+const vacantUnits = computed(() => totalUnits.value - occupiedUnits.value)
+const occupancyRate = computed(() => {
+	if (totalUnits.value === 0) return '0.0'
+	return ((occupiedUnits.value / totalUnits.value) * 100).toFixed(1)
+})
+
+const totalExpectedRent = computed(() => propertyPortfolio.value.reduce((sum, property) => sum + property.monthlyRentTotal, 0))
+const totalCollectedThisMonth = computed(() => monthlyCollections[4]?.amount ?? 0)
+const totalOutstandingArrears = computed(() => totalExpectedRent.value - totalCollectedThisMonth.value)
+
 const openMaintenanceCount = computed(() => maintenanceQueue.value.filter((ticket) => ticket.status === 'Open').length)
+const highestCollectionMonth = computed<MonthlyCollection>(() => {
+	if (monthlyCollections.length === 0) {
+		return { month: 'N/A', amount: 0 }
+	}
+
+	return monthlyCollections.reduce((highest, current) => (current.amount > highest.amount ? current : highest))
+})
+
+const lowestCollectionMonth = computed<MonthlyCollection>(() => {
+	if (monthlyCollections.length === 0) {
+		return { month: 'N/A', amount: 0 }
+	}
+
+	return monthlyCollections.reduce((lowest, current) => (current.amount < lowest.amount ? current : lowest))
+})
+
+const maxCollectionAmount = computed(() => {
+	if (monthlyCollections.length === 0) return 0
+	return Math.max(...monthlyCollections.map((item) => item.amount))
+})
+
+function barHeight(amount: number) {
+	if (!maxCollectionAmount.value) return 0
+	return Math.round((amount / maxCollectionAmount.value) * 100)
+}
+
+function barColor(item: MonthlyCollection) {
+	if (item.month === highestCollectionMonth.value.month) return 'bg-[#00696b]'
+	if (item.month === lowestCollectionMonth.value.month) return 'bg-[#d9f2ed] border border-[#bce5dc]'
+	return 'bg-[#7cbfb7]'
+}
+
+function formatCurrency(amount: number) {
+	return new Intl.NumberFormat('en-KE', {
+		style: 'currency',
+		currency: 'KES',
+		maximumFractionDigits: 0
+	}).format(amount)
+}
+
+function formatCompactCurrency(amount: number) {
+	return new Intl.NumberFormat('en-KE', {
+		style: 'currency',
+		currency: 'KES',
+		notation: 'compact',
+		maximumFractionDigits: 1
+	}).format(amount)
+}
 
 function sendReminder(paymentId: number) {
 	upcomingPayments.value = upcomingPayments.value.map((payment) => {

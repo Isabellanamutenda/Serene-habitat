@@ -3,7 +3,7 @@
     class="w-full lg:w-64 shrink-0 bg-white border-b border-slate-100 lg:border-b-0 lg:border-r p-4 lg:p-6"
   >
     <div class="flex items-center justify-between">
-      <h2 class="text-[#00696b] font-bold text-lg sm:text-xl">Landlord Panel</h2>
+      <h2 class="text-[#00696b] font-bold text-lg sm:text-xl">Rental Ageny</h2>
       <button
         type="button"
         @click="isMenuCollapsed = !isMenuCollapsed"
@@ -49,6 +49,14 @@
         >
           <span>🛠️</span>
           <span>Maintenance</span>
+        </NuxtLink>
+
+        <NuxtLink
+          to="/landlord/dashboard#property-breakdown"
+          class="flex items-center space-x-3 text-slate-600 hover:text-[#00696b] font-medium p-2 rounded-lg transition-all"
+        >
+          <span>🏘️</span>
+          <span>Property Breakdown</span>
         </NuxtLink>
 
         <NuxtLink
