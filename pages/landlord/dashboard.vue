@@ -215,6 +215,32 @@
 			</section>
 
 			<section class="bg-white rounded-2xl border border-slate-100 shadow-sm p-5 sm:p-6 mb-6">
+				<header>
+					<h2 class="text-xl font-semibold text-slate-900">Tenant Payments</h2>
+					<p class="text-sm text-slate-500">Last 2 payments with tenant name, amount, and payment date.</p>
+				</header>
+
+				<div class="mt-4 overflow-x-auto">
+					<table class="min-w-full text-left text-sm">
+						<thead>
+							<tr class="border-b border-slate-100 text-slate-500">
+								<th class="py-2 pr-4 font-medium">Tenant Name</th>
+								<th class="py-2 pr-4 font-medium">Amount</th>
+								<th class="py-2 font-medium">Date</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr v-for="payment in lastTwoTenantPayments" :key="payment.id" class="border-b border-slate-50">
+								<td class="py-3 pr-4 font-semibold text-slate-900">{{ payment.tenantName }}</td>
+								<td class="py-3 pr-4 text-emerald-700 font-semibold">{{ payment.amount }}</td>
+								<td class="py-3 text-slate-700">{{ payment.date }}</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+			</section>
+
+			<section class="bg-white rounded-2xl border border-slate-100 shadow-sm p-5 sm:p-6 mb-6">
 				<header class="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-3">
 					<div>
 						<h2 class="text-xl font-semibold text-slate-900">Monthly Rent Collected</h2>
@@ -287,6 +313,13 @@ type PaymentItem = {
 	reminderSent: boolean
 }
 
+type TenantPaymentItem = {
+	id: number
+	tenantName: string
+	amount: string
+	date: string
+}
+
 type MaintenanceItem = {
 	id: number
 	unit: string
@@ -329,6 +362,11 @@ const upcomingPayments = ref<PaymentItem[]>([
 	{ id: 1, tenant: 'Ashley Tenant', unit: 'A-12', dueDate: 'Apr 10, 2026', amount: 'Ksh 45,000', reminderSent: false },
 	{ id: 2, tenant: 'John Kariuki', unit: 'B-03', dueDate: 'Apr 11, 2026', amount: 'Ksh 38,500', reminderSent: false },
 	{ id: 3, tenant: 'Faith Njeri', unit: 'C-05', dueDate: 'Apr 13, 2026', amount: 'Ksh 41,250', reminderSent: false }
+])
+
+const lastTwoTenantPayments = ref<TenantPaymentItem[]>([
+	{ id: 1, tenantName: 'Faith Njeri', amount: 'Ksh 41,250', date: 'Apr 18, 2026' },
+	{ id: 2, tenantName: 'John Kariuki', amount: 'Ksh 38,500', date: 'Apr 16, 2026' }
 ])
 
 const maintenanceQueue = ref<MaintenanceItem[]>([
