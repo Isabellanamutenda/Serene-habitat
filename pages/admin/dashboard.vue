@@ -69,45 +69,78 @@
 					<section id="device-iot-control" class="bg-white rounded-2xl border border-slate-100 shadow-sm p-5 sm:p-6 space-y-4 scroll-mt-6">
 						<div>
 							<h2 class="text-xl font-semibold text-slate-900">Device/IoT Control</h2>
-							<p class="text-sm text-slate-500">Automation profile and live connectivity status per smart device category.</p>
+							<p class="text-sm text-slate-500">Real-time device connectivity and status across all properties.</p>
 						</div>
 
-						<div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4">
-							<article v-for="device in iotDevices" :key="device.name" class="rounded-xl border border-slate-100 p-4">
-								<div class="flex items-center justify-between">
-									<p class="font-semibold text-slate-900">{{ device.name }}</p>
-									<span class="rounded-full px-2.5 py-1 text-xs font-semibold" :class="device.online ? 'bg-emerald-100 text-emerald-700' : 'bg-rose-100 text-rose-700'">
-										{{ device.online ? 'Online' : 'Offline' }}
-									</span>
-								</div>
-								<p class="mt-2 text-sm text-slate-500">Automation mode: {{ device.mode }}</p>
-								<p class="mt-1 text-sm text-slate-500">Last sync: {{ device.lastSync }}</p>
+						<div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+							<article class="rounded-xl border border-slate-100 bg-slate-50 p-4">
+								<p class="text-xs uppercase tracking-wide text-slate-500">Total Devices</p>
+								<p class="mt-2 text-2xl font-semibold text-slate-900">{{ deviceList.length }}</p>
 							</article>
+							<article class="rounded-xl border border-slate-100 bg-slate-50 p-4">
+								<p class="text-xs uppercase tracking-wide text-slate-500">Online Devices</p>
+								<p class="mt-2 text-2xl font-semibold text-emerald-700">{{ onlineDeviceCount }}</p>
+							</article>
+							<article class="rounded-xl border border-slate-100 bg-slate-50 p-4">
+								<p class="text-xs uppercase tracking-wide text-slate-500">Offline Devices</p>
+								<p class="mt-2 text-2xl font-semibold text-rose-700">{{ offlineDeviceCount }}</p>
+							</article>
+						</div>
+
+						<div class="overflow-x-auto mt-4">
+							<table class="min-w-full text-left text-sm">
+								<thead>
+									<tr class="border-b border-slate-100 text-slate-500">
+										<th class="py-2 pr-4 font-medium">Device ID</th>
+										<th class="py-2 pr-4 font-medium">Status</th>
+										<th class="py-2 pr-4 font-medium">Last Seen At</th>
+										<th class="py-2 pr-4 font-medium">Unit Number</th>
+										<th class="py-2 font-medium">Property Name</th>
+									</tr>
+								</thead>
+								<tbody>
+									<tr v-for="device in deviceList" :key="device.id" class="border-b border-slate-50">
+										<td class="py-3 pr-4 font-semibold text-slate-900">{{ device.id }}</td>
+										<td class="py-3 pr-4">
+											<span class="rounded-full px-2.5 py-1 text-xs font-semibold" :class="device.status === 'Online' ? 'bg-emerald-100 text-emerald-700' : 'bg-rose-100 text-rose-700'">
+												{{ device.status }}
+											</span>
+										</td>
+										<td class="py-3 pr-4 text-slate-700">{{ device.lastSeenAt }}</td>
+										<td class="py-3 pr-4 text-slate-700">{{ device.unitNumber }}</td>
+										<td class="py-3 text-slate-700">{{ device.propertyName }}</td>
+									</tr>
+								</tbody>
+							</table>
 						</div>
 					</section>
 
 					<section id="manual-device-control" class="bg-white rounded-2xl border border-slate-100 shadow-sm p-5 sm:p-6 space-y-4 scroll-mt-6">
 						<div>
 							<h2 class="text-xl font-semibold text-slate-900">Manual Device Control</h2>
-							<p class="text-sm text-slate-500">Override smart routines and trigger direct commands for key endpoints.</p>
+							<p class="text-sm text-slate-500">Only admins can manually lock and unlock the door.</p>
 						</div>
 
-						<div class="grid grid-cols-1 lg:grid-cols-2 gap-4">
-							<article v-for="control in manualControls" :key="control.name" class="rounded-xl border border-slate-100 p-4 flex items-center justify-between gap-4">
-								<div>
-									<p class="font-semibold text-slate-900">{{ control.name }}</p>
-									<p class="text-sm text-slate-500">Current state: {{ control.enabled ? 'Enabled' : 'Disabled' }}</p>
-								</div>
+						<article class="rounded-xl border border-slate-100 p-4 flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+							<div>
+								<p class="font-semibold text-slate-900">{{ manualDoorControl.name }}</p>
+								<p class="text-sm text-slate-500">Current state: {{ manualDoorControl.locked ? 'Locked' : 'Unlocked' }}</p>
+							</div>
+							<div class="flex items-center gap-3">
+								<span class="rounded-full px-3 py-1 text-xs font-semibold" :class="manualDoorControl.locked ? 'bg-amber-100 text-amber-700' : 'bg-emerald-100 text-emerald-700'">
+									{{ manualDoorControl.locked ? 'Locked' : 'Unlocked' }}
+								</span>
 								<button
 									type="button"
 									class="rounded-lg px-3 py-2 text-sm font-semibold transition-all"
-									:class="control.enabled ? 'bg-rose-100 text-rose-700 hover:bg-rose-200' : 'bg-[#00696b] text-white hover:bg-[#004d4f]'"
-									@click="control.enabled = !control.enabled"
+									:class="manualDoorControl.locked ? 'bg-[#00696b] text-white hover:bg-[#004d4f]' : 'bg-rose-100 text-rose-700 hover:bg-rose-200'"
+									@click="manualDoorControl.locked = !manualDoorControl.locked"
 								>
-									{{ control.enabled ? 'Disable' : 'Enable' }}
+									{{ manualDoorControl.locked ? 'Unlock Door' : 'Lock Door' }}
 								</button>
-							</article>
-						</div>
+							</div>
+						</article>
+						<p class="text-xs text-slate-400">Access to this control is restricted to admin users.</p>
 					</section>
 
 					<section id="recent-activity" class="bg-white rounded-2xl border border-slate-100 shadow-sm p-5 sm:p-6 space-y-4 scroll-mt-6">
@@ -133,21 +166,25 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue'
+import { computed, ref } from 'vue'
 import AdminSidebar from '~/components/admin/AdminSidebar.vue'
 
-const iotDevices = [
-	{ name: 'Smart Locks', online: true, mode: 'Auto-secure', lastSync: '1 min ago' },
-	{ name: 'HVAC Controllers', online: true, mode: 'Energy saver', lastSync: '3 mins ago' },
-	{ name: 'Water Leak Sensors', online: false, mode: 'Alert only', lastSync: '27 mins ago' }
+const deviceList = [
+	{ id: 'DV-001', status: 'Online', lastSeenAt: '2 mins ago', unitNumber: '101', propertyName: 'Riverside Suites' },
+	{ id: 'DV-002', status: 'Online', lastSeenAt: '5 mins ago', unitNumber: '205', propertyName: 'Riverside Suites' },
+	{ id: 'DV-003', status: 'Offline', lastSeenAt: '1 hr ago', unitNumber: '412', propertyName: 'Downtown Plaza' },
+	{ id: 'DV-004', status: 'Online', lastSeenAt: '1 min ago', unitNumber: '301', propertyName: 'Green Valley' },
+	{ id: 'DV-005', status: 'Online', lastSeenAt: '3 mins ago', unitNumber: '108', propertyName: 'Riverside Suites' },
+	{ id: 'DV-006', status: 'Offline', lastSeenAt: '45 mins ago', unitNumber: 'Common', propertyName: 'Downtown Plaza' }
 ]
 
-const manualControls = ref([
-	{ name: 'Main Gate Access', enabled: true },
-	{ name: 'Parking Lights', enabled: false },
-	{ name: 'Boiler Pump', enabled: true },
-	{ name: 'Backup Generator', enabled: false }
-])
+const onlineDeviceCount = computed(() => deviceList.filter((d) => d.status === 'Online').length)
+const offlineDeviceCount = computed(() => deviceList.filter((d) => d.status === 'Offline').length)
+
+const manualDoorControl = ref({
+	name: 'Main Door Access',
+	locked: true
+})
 
 const recentActivity = [
 	{ id: 1, action: 'Generator manually disabled', detail: 'Action executed by Admin at Riverside Block A.', time: '2 min ago' },
