@@ -13,25 +13,29 @@
 					<section id="system-overview" class="bg-white rounded-2xl border border-slate-100 shadow-sm p-5 sm:p-6 space-y-4 scroll-mt-6">
 						<div>
 							<h2 class="text-xl font-semibold text-slate-900">System Overview</h2>
-							<p class="text-sm text-slate-500">Health and operational performance across the full platform.</p>
+							<p class="text-sm text-slate-500">Platform-wide entities and resource allocation summary.</p>
 						</div>
 
-						<div class="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-4">
+						<div class="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-5 gap-4">
 							<article class="rounded-xl border border-slate-100 bg-slate-50 p-4">
-								<p class="text-xs uppercase tracking-wide text-slate-500">Active Properties</p>
+								<p class="text-xs uppercase tracking-wide text-slate-500">Total Organizations</p>
+								<p class="mt-2 text-2xl font-semibold text-slate-900">8</p>
+							</article>
+							<article class="rounded-xl border border-slate-100 bg-slate-50 p-4">
+								<p class="text-xs uppercase tracking-wide text-slate-500">Total Landlords</p>
+								<p class="mt-2 text-2xl font-semibold text-slate-900">42</p>
+							</article>
+							<article class="rounded-xl border border-slate-100 bg-slate-50 p-4">
+								<p class="text-xs uppercase tracking-wide text-slate-500">Total Units</p>
+								<p class="mt-2 text-2xl font-semibold text-emerald-700">487</p>
+							</article>
+							<article class="rounded-xl border border-slate-100 bg-slate-50 p-4">
+								<p class="text-xs uppercase tracking-wide text-slate-500">Total Properties</p>
 								<p class="mt-2 text-2xl font-semibold text-slate-900">56</p>
 							</article>
 							<article class="rounded-xl border border-slate-100 bg-slate-50 p-4">
-								<p class="text-xs uppercase tracking-wide text-slate-500">Online Devices</p>
-								<p class="mt-2 text-2xl font-semibold text-emerald-700">1,240</p>
-							</article>
-							<article class="rounded-xl border border-slate-100 bg-slate-50 p-4">
-								<p class="text-xs uppercase tracking-wide text-slate-500">Critical Alerts</p>
-								<p class="mt-2 text-2xl font-semibold text-rose-700">3</p>
-							</article>
-							<article class="rounded-xl border border-slate-100 bg-slate-50 p-4">
-								<p class="text-xs uppercase tracking-wide text-slate-500">Automation Success</p>
-								<p class="mt-2 text-2xl font-semibold text-[#00696b]">98.2%</p>
+								<p class="text-xs uppercase tracking-wide text-slate-500">Total Tenants</p>
+								<p class="mt-2 text-2xl font-semibold text-[#00696b]">478</p>
 							</article>
 						</div>
 					</section>
