@@ -43,25 +43,25 @@
 					<section id="financial-overview" class="bg-white rounded-2xl border border-slate-100 shadow-sm p-5 sm:p-6 space-y-4 scroll-mt-6">
 						<div>
 							<h2 class="text-xl font-semibold text-slate-900">Financial Overview</h2>
-							<p class="text-sm text-slate-500">Revenue, collections, and outstanding balances for the current cycle.</p>
+							<p class="text-sm text-slate-500">Payment history, collections, and rental revenue metrics.</p>
 						</div>
 
 						<div class="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-4">
 							<article class="rounded-xl border border-slate-100 bg-slate-50 p-4">
-								<p class="text-xs uppercase tracking-wide text-slate-500">Total Billed</p>
-								<p class="mt-2 text-2xl font-semibold text-slate-900">Ksh 8.9M</p>
+								<p class="text-xs uppercase tracking-wide text-slate-500">Total Payments (All Time)</p>
+								<p class="mt-2 text-2xl font-semibold text-slate-900">Ksh 24.5M</p>
 							</article>
 							<article class="rounded-xl border border-slate-100 bg-slate-50 p-4">
-								<p class="text-xs uppercase tracking-wide text-slate-500">Collected</p>
-								<p class="mt-2 text-2xl font-semibold text-emerald-700">Ksh 8.1M</p>
+								<p class="text-xs uppercase tracking-wide text-slate-500">Collected This Month</p>
+								<p class="mt-2 text-2xl font-semibold text-emerald-700">Ksh 2.1M</p>
 							</article>
 							<article class="rounded-xl border border-slate-100 bg-slate-50 p-4">
-								<p class="text-xs uppercase tracking-wide text-slate-500">Outstanding</p>
-								<p class="mt-2 text-2xl font-semibold text-amber-700">Ksh 0.8M</p>
+								<p class="text-xs uppercase tracking-wide text-slate-500">Total Expected Rent</p>
+								<p class="mt-2 text-2xl font-semibold text-[#00696b]">Ksh 2.3M</p>
 							</article>
 							<article class="rounded-xl border border-slate-100 bg-slate-50 p-4">
-								<p class="text-xs uppercase tracking-wide text-slate-500">Collection Rate</p>
-								<p class="mt-2 text-2xl font-semibold text-[#00696b]">91%</p>
+								<p class="text-xs uppercase tracking-wide text-slate-500">Total Outstanding</p>
+								<p class="mt-2 text-2xl font-semibold text-rose-700">Ksh 0.8M</p>
 							</article>
 						</div>
 					</section>
