@@ -146,18 +146,62 @@
 					<section id="recent-activity" class="bg-white rounded-2xl border border-slate-100 shadow-sm p-5 sm:p-6 space-y-4 scroll-mt-6">
 						<div>
 							<h2 class="text-xl font-semibold text-slate-900">Recent Activity</h2>
-							<p class="text-sm text-slate-500">Most recent platform events and control actions.</p>
+							<p class="text-sm text-slate-500">Latest payments and device command actions across the platform.</p>
 						</div>
 
-						<ul class="space-y-3">
-							<li v-for="activity in recentActivity" :key="activity.id" class="rounded-xl border border-slate-100 p-4">
-								<div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2">
-									<p class="font-medium text-slate-900">{{ activity.action }}</p>
-									<p class="text-xs font-semibold uppercase tracking-wide text-slate-400">{{ activity.time }}</p>
+						<div class="grid grid-cols-1 xl:grid-cols-2 gap-6">
+							<section class="rounded-xl border border-slate-100 p-4">
+								<header class="mb-3">
+									<h3 class="font-semibold text-slate-900">Latest Payments (10)</h3>
+								</header>
+								<div class="overflow-x-auto">
+									<table class="min-w-full text-left text-sm">
+										<thead>
+											<tr class="border-b border-slate-100 text-slate-500">
+												<th class="py-2 pr-4 font-medium">Payment Ref</th>
+												<th class="py-2 pr-4 font-medium">Tenant</th>
+												<th class="py-2 pr-4 font-medium">Amount</th>
+												<th class="py-2 font-medium">Time</th>
+											</tr>
+										</thead>
+										<tbody>
+											<tr v-for="payment in latestPayments" :key="payment.ref" class="border-b border-slate-50">
+												<td class="py-2 pr-4 font-semibold text-slate-900">{{ payment.ref }}</td>
+												<td class="py-2 pr-4 text-slate-700">{{ payment.tenant }}</td>
+												<td class="py-2 pr-4 text-emerald-700 font-semibold">{{ payment.amount }}</td>
+												<td class="py-2 text-slate-500">{{ payment.time }}</td>
+											</tr>
+										</tbody>
+									</table>
 								</div>
-								<p class="mt-1 text-sm text-slate-500">{{ activity.detail }}</p>
-							</li>
-						</ul>
+							</section>
+
+							<section class="rounded-xl border border-slate-100 p-4">
+								<header class="mb-3">
+									<h3 class="font-semibold text-slate-900">Latest Device Commands (10)</h3>
+								</header>
+								<div class="overflow-x-auto">
+									<table class="min-w-full text-left text-sm">
+										<thead>
+											<tr class="border-b border-slate-100 text-slate-500">
+												<th class="py-2 pr-4 font-medium">Command</th>
+												<th class="py-2 pr-4 font-medium">Device ID</th>
+												<th class="py-2 pr-4 font-medium">Admin</th>
+												<th class="py-2 font-medium">Time</th>
+											</tr>
+										</thead>
+										<tbody>
+											<tr v-for="command in latestDeviceCommands" :key="command.id" class="border-b border-slate-50">
+												<td class="py-2 pr-4 font-semibold text-slate-900">{{ command.command }}</td>
+												<td class="py-2 pr-4 text-slate-700">{{ command.deviceId }}</td>
+												<td class="py-2 pr-4 text-slate-700">{{ command.admin }}</td>
+												<td class="py-2 text-slate-500">{{ command.time }}</td>
+											</tr>
+										</tbody>
+									</table>
+								</div>
+							</section>
+						</div>
 					</section>
 				</section>
 			</main>
@@ -186,11 +230,30 @@ const manualDoorControl = ref({
 	locked: true
 })
 
-const recentActivity = [
-	{ id: 1, action: 'Generator manually disabled', detail: 'Action executed by Admin at Riverside Block A.', time: '2 min ago' },
-	{ id: 2, action: 'Leak sensor offline alert', detail: 'Unit D-12 sensor stopped reporting telemetry.', time: '11 min ago' },
-	{ id: 3, action: 'Monthly collection snapshot generated', detail: 'Finance summary exported for April cycle.', time: '28 min ago' },
-	{ id: 4, action: 'Gate access policy updated', detail: 'Visitor window adjusted from 6:00 AM to 10:00 PM.', time: '1 hr ago' }
+const latestPayments = [
+	{ ref: 'MPX00172', tenant: 'A. Mugo', amount: 'Ksh 45,000', time: '2 min ago' },
+	{ ref: 'MPX00171', tenant: 'N. Wanjiku', amount: 'Ksh 38,500', time: '6 min ago' },
+	{ ref: 'MPX00170', tenant: 'K. Otieno', amount: 'Ksh 41,250', time: '11 min ago' },
+	{ ref: 'MPX00169', tenant: 'L. Kilonzo', amount: 'Ksh 52,000', time: '18 min ago' },
+	{ ref: 'MPX00168', tenant: 'D. Kamau', amount: 'Ksh 36,000', time: '25 min ago' },
+	{ ref: 'MPX00167', tenant: 'R. Achieng', amount: 'Ksh 47,000', time: '31 min ago' },
+	{ ref: 'MPX00166', tenant: 'M. Wekesa', amount: 'Ksh 33,000', time: '42 min ago' },
+	{ ref: 'MPX00165', tenant: 'T. Njeri', amount: 'Ksh 40,500', time: '53 min ago' },
+	{ ref: 'MPX00164', tenant: 'P. Mwangi', amount: 'Ksh 39,000', time: '1 hr ago' },
+	{ ref: 'MPX00163', tenant: 'B. Kiptoo', amount: 'Ksh 43,000', time: '1 hr ago' }
+]
+
+const latestDeviceCommands = [
+	{ id: 1, command: 'Unlock Door', deviceId: 'DV-001', admin: 'Admin User', time: '1 min ago' },
+	{ id: 2, command: 'Lock Door', deviceId: 'DV-001', admin: 'Admin User', time: '4 min ago' },
+	{ id: 3, command: 'Restart Sensor', deviceId: 'DV-006', admin: 'Admin User', time: '9 min ago' },
+	{ id: 4, command: 'Unlock Door', deviceId: 'DV-004', admin: 'Admin User', time: '14 min ago' },
+	{ id: 5, command: 'Lock Door', deviceId: 'DV-004', admin: 'Admin User', time: '19 min ago' },
+	{ id: 6, command: 'Ping Device', deviceId: 'DV-003', admin: 'Admin User', time: '27 min ago' },
+	{ id: 7, command: 'Unlock Door', deviceId: 'DV-002', admin: 'Admin User', time: '36 min ago' },
+	{ id: 8, command: 'Lock Door', deviceId: 'DV-002', admin: 'Admin User', time: '43 min ago' },
+	{ id: 9, command: 'Restart Controller', deviceId: 'DV-005', admin: 'Admin User', time: '51 min ago' },
+	{ id: 10, command: 'Sync Device', deviceId: 'DV-003', admin: 'Admin User', time: '1 hr ago' }
 ]
 </script>
 
