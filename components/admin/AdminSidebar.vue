@@ -26,7 +26,7 @@
           :key="item.label"
           :to="item.to"
           class="flex items-center gap-3 rounded-lg p-2 font-medium transition-all"
-          :class="activeSectionId === item.id ? 'bg-[#e6f4f1] text-[#00696b]' : 'text-slate-600 hover:text-[#00696b] hover:bg-slate-50'"
+          :class="isItemActive(item) ? 'bg-[#e6f4f1] text-[#00696b]' : 'text-slate-600 hover:text-[#00696b] hover:bg-slate-50'"
         >
           <span>{{ item.icon }}</span>
           <span>{{ item.label }}</span>
@@ -43,9 +43,11 @@
 
 <script setup lang="ts">
 import { onBeforeUnmount, onMounted, ref } from 'vue'
+import { useRoute } from 'vue-router'
 
 const isMenuCollapsed = ref(false)
 const activeSectionId = ref('system-overview')
+const route = useRoute()
 
 let sectionObserver: IntersectionObserver | null = null
 
@@ -54,8 +56,17 @@ const items = [
   { id: 'financial-overview', label: 'Financial Overview', to: '/admin/dashboard#financial-overview', icon: '💳' },
   { id: 'device-iot-control', label: 'Device/IoT Control', to: '/admin/dashboard#device-iot-control', icon: '📡' },
   { id: 'manual-device-control', label: 'Manual Device Control', to: '/admin/dashboard#manual-device-control', icon: '🕹️' },
-  { id: 'recent-activity', label: 'Recent Activity', to: '/admin/dashboard#recent-activity', icon: '🧾' }
+  { id: 'recent-activity', label: 'Recent Activity', to: '/admin/dashboard#recent-activity', icon: '🧾' },
+  { id: 'admin-settings', label: 'Settings', to: '/admin/settings', icon: '⚙️' }
 ]
+
+function isItemActive(item: { id: string; to: string }) {
+  if (item.to === '/admin/settings') {
+    return route.path === '/admin/settings'
+  }
+
+  return route.path === '/admin/dashboard' && activeSectionId.value === item.id
+}
 
 onMounted(() => {
   const sectionIds = items.map((item) => item.id)

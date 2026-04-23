@@ -20,7 +20,7 @@
     >
       <nav class="flex flex-col space-y-2">
         <NuxtLink
-          to="/landlord/dashboard#overview"
+          to="/landlord/dashboard"
           class="flex items-center space-x-3 text-slate-600 hover:text-[#00696b] font-medium p-2 rounded-lg transition-all"
         >
           <span>📊</span>
@@ -28,7 +28,7 @@
         </NuxtLink>
 
         <NuxtLink
-          to="/landlord/dashboard#units"
+          to="/landlord/units"
           class="flex items-center space-x-3 text-slate-600 hover:text-[#00696b] font-medium p-2 rounded-lg transition-all"
         >
           <span>🏢</span>
@@ -36,7 +36,7 @@
         </NuxtLink>
 
         <NuxtLink
-          to="/landlord/dashboard#tenants"
+          to="/landlord/tenants"
           class="flex items-center space-x-3 text-slate-600 hover:text-[#00696b] font-medium p-2 rounded-lg transition-all"
         >
           <span>👥</span>
@@ -44,7 +44,7 @@
         </NuxtLink>
 
         <NuxtLink
-          to="/landlord/dashboard#maintenance"
+          to="/landlord/maintenance"
           class="flex items-center space-x-3 text-slate-600 hover:text-[#00696b] font-medium p-2 rounded-lg transition-all"
         >
           <span>🛠️</span>
@@ -52,7 +52,7 @@
         </NuxtLink>
 
         <NuxtLink
-          to="/landlord/dashboard#property-breakdown"
+          to="/landlord/property-breakdown"
           class="flex items-center space-x-3 text-slate-600 hover:text-[#00696b] font-medium p-2 rounded-lg transition-all"
         >
           <span>🏘️</span>
@@ -60,7 +60,7 @@
         </NuxtLink>
 
         <NuxtLink
-          to="/landlord/dashboard#financials"
+          to="/landlord/financials"
           class="flex items-center space-x-3 text-slate-600 hover:text-[#00696b] font-medium p-2 rounded-lg transition-all"
         >
           <span>💰</span>
