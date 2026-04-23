@@ -72,6 +72,13 @@
 import { computed, ref } from 'vue'
 
 type Role = 'tenant' | 'landlord' | 'admin'
+type AuthSession = {
+  role: Role
+  email: string
+  loggedInAt: string
+}
+
+const AUTH_STORAGE_KEY = 'serene-auth-session'
 
 const roles = [
   { label: 'Tenant', value: 'tenant' as Role },
@@ -108,6 +115,16 @@ async function handleLogin() {
 
   messageType.value = 'success'
   message.value = `Signing in as ${selectedRole.value}...`
+
+  if (import.meta.client) {
+    const session: AuthSession = {
+      role: selectedRole.value,
+      email: email.value,
+      loggedInAt: new Date().toISOString()
+    }
+    localStorage.setItem(AUTH_STORAGE_KEY, JSON.stringify(session))
+  }
+
   await navigateTo(roleRoutes.value[selectedRole.value])
 }
 </script>
