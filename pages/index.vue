@@ -15,6 +15,9 @@
             <NuxtLink to="/login" class="rounded-full bg-[#00696b] px-5 py-3 text-sm font-semibold text-white shadow-sm transition hover:bg-[#004d4f]">
               Go to Login
             </NuxtLink>
+            <NuxtLink to="/register" class="rounded-full border border-slate-300 px-5 py-3 text-sm font-semibold text-slate-700 transition hover:bg-slate-50">
+              Create Account
+            </NuxtLink>
             <NuxtLink to="/tenant/dashboard" class="rounded-full border border-slate-300 px-5 py-3 text-sm font-semibold text-slate-700 transition hover:bg-slate-50">
               View Tenant Demo
             </NuxtLink>
@@ -25,6 +28,10 @@
           <NuxtLink to="/login" class="rounded-2xl border border-slate-200 bg-white p-5 transition hover:border-[#00696b] hover:shadow-sm">
             <p class="text-sm font-semibold text-slate-900">Login form</p>
             <p class="mt-2 text-sm leading-6 text-slate-500">Enter email, password, and role in one place.</p>
+          </NuxtLink>
+          <NuxtLink to="/register" class="rounded-2xl border border-slate-200 bg-white p-5 transition hover:border-[#00696b] hover:shadow-sm">
+            <p class="text-sm font-semibold text-slate-900">Registration form</p>
+            <p class="mt-2 text-sm leading-6 text-slate-500">Full names, email, password confirmation, and consent.</p>
           </NuxtLink>
           <NuxtLink to="/tenant/dashboard" class="rounded-2xl border border-slate-200 bg-white p-5 transition hover:border-[#00696b] hover:shadow-sm">
             <p class="text-sm font-semibold text-slate-900">Tenant dashboard</p>

@@ -59,6 +59,7 @@
         </form>
 
         <div class="mt-5 flex flex-wrap justify-center gap-2 text-sm text-slate-500">
+          <NuxtLink to="/register" class="rounded-full border border-slate-200 px-3 py-1.5 hover:bg-slate-50">Register</NuxtLink>
           <NuxtLink to="/tenant/dashboard" class="rounded-full border border-slate-200 px-3 py-1.5 hover:bg-slate-50">Tenant</NuxtLink>
           <NuxtLink to="/landlord/dashboard" class="rounded-full border border-slate-200 px-3 py-1.5 hover:bg-slate-50">Landlord</NuxtLink>
           <NuxtLink to="/admin/dashboard" class="rounded-full border border-slate-200 px-3 py-1.5 hover:bg-slate-50">Admin</NuxtLink>
