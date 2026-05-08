@@ -34,40 +34,58 @@
 
 		<div class="grid grid-cols-1 xl:grid-cols-12 gap-6 items-start">
 			<section id="tenants" class="xl:col-span-7 bg-white rounded-2xl border border-slate-100 shadow-sm p-5 sm:p-6 scroll-mt-6">
-				<header class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2">
+				<header class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
 					<div>
-						<h2 class="text-xl font-semibold text-slate-900">Upcoming Payments</h2>
-						<p class="text-sm text-slate-500">Payments due in the next 7 days.</p>
+						<h2 class="text-xl font-semibold text-slate-900">Tenants</h2>
+						<p class="text-sm text-slate-500">Live tenant snapshot with occupancy and follow-up status.</p>
 					</div>
+					<NuxtLink
+						to="/landlord/tenants"
+						class="inline-flex items-center justify-center rounded-lg border border-slate-300 px-4 py-2 text-sm font-semibold text-slate-700 hover:bg-slate-100 transition-colors"
+					>
+						View full tenants page
+					</NuxtLink>
 				</header>
 
-				<div class="mt-4 overflow-x-auto">
+				<div class="mt-4 grid grid-cols-1 sm:grid-cols-3 gap-4">
+					<article class="rounded-xl border border-slate-100 bg-slate-50 p-4">
+						<p class="text-xs uppercase tracking-wide text-slate-500">Total Tenants</p>
+						<p class="mt-2 text-2xl font-semibold text-slate-900">{{ totalTenants }}</p>
+					</article>
+
+					<article class="rounded-xl border border-slate-100 bg-slate-50 p-4">
+						<p class="text-xs uppercase tracking-wide text-slate-500">Current</p>
+						<p class="mt-2 text-2xl font-semibold text-emerald-700">{{ currentTenants }}</p>
+					</article>
+
+					<article class="rounded-xl border border-slate-100 bg-slate-50 p-4">
+						<p class="text-xs uppercase tracking-wide text-slate-500">Requires Follow Up</p>
+						<p class="mt-2 text-2xl font-semibold text-amber-700">{{ followUpTenants }}</p>
+					</article>
+				</div>
+
+				<div class="mt-5 overflow-x-auto">
 					<table class="min-w-full text-left text-sm">
 						<thead>
 							<tr class="border-b border-slate-100 text-slate-500">
 								<th class="py-2 pr-4 font-medium">Tenant</th>
 								<th class="py-2 pr-4 font-medium">Unit</th>
-								<th class="py-2 pr-4 font-medium">Due date</th>
-								<th class="py-2 pr-4 font-medium">Amount</th>
-								<th class="py-2 font-medium text-right">Action</th>
+								<th class="py-2 pr-4 font-medium">Phone</th>
+								<th class="py-2 font-medium">Status</th>
 							</tr>
 						</thead>
 						<tbody>
-							<tr v-for="payment in upcomingPayments" :key="payment.id" class="border-b border-slate-50">
-								<td class="py-3 pr-4 text-slate-700">{{ payment.tenant }}</td>
-								<td class="py-3 pr-4 text-slate-700">{{ payment.unit }}</td>
-								<td class="py-3 pr-4 text-slate-700">{{ payment.dueDate }}</td>
-								<td class="py-3 pr-4 font-medium text-slate-900">{{ payment.amount }}</td>
-								<td class="py-3 text-right">
-									<button
-										type="button"
-										class="rounded-lg px-3 py-1.5 text-xs font-semibold transition-all"
-										:class="payment.reminderSent ? 'bg-slate-100 text-slate-500 cursor-not-allowed' : 'bg-[#00696b] text-white hover:bg-[#004d4f]'"
-										:disabled="payment.reminderSent"
-										@click="sendReminder(payment.id)"
+							<tr v-for="tenant in tenantOverview" :key="tenant.name" class="border-b border-slate-50">
+								<td class="py-3 pr-4 font-semibold text-slate-900">{{ tenant.name }}</td>
+								<td class="py-3 pr-4 text-slate-700">{{ tenant.unit }}</td>
+								<td class="py-3 pr-4 text-slate-700">{{ tenant.phone }}</td>
+								<td class="py-3">
+									<span
+										class="inline-flex rounded-full px-2.5 py-1 text-xs font-semibold"
+										:class="tenant.status === 'Current' ? 'bg-emerald-100 text-emerald-700' : 'bg-amber-100 text-amber-700'"
 									>
-										{{ payment.reminderSent ? 'Sent' : 'Send Reminder' }}
-									</button>
+										{{ tenant.status }}
+									</span>
 								</td>
 							</tr>
 						</tbody>
@@ -313,6 +331,13 @@ type PaymentItem = {
 	reminderSent: boolean
 }
 
+type TenantOverviewItem = {
+	name: string
+	unit: string
+	phone: string
+	status: 'Current' | 'Late'
+}
+
 type TenantPaymentItem = {
 	id: number
 	tenantName: string
@@ -364,6 +389,12 @@ const upcomingPayments = ref<PaymentItem[]>([
 	{ id: 3, tenant: 'Faith Njeri', unit: 'C-05', dueDate: 'Apr 13, 2026', amount: 'Ksh 41,250', reminderSent: false }
 ])
 
+const tenantOverview = ref<TenantOverviewItem[]>([
+	{ name: 'Ashley Tenant', unit: 'A-12', phone: '+254 700 000 012', status: 'Current' },
+	{ name: 'John Kariuki', unit: 'B-03', phone: '+254 700 000 103', status: 'Current' },
+	{ name: 'Faith Njeri', unit: 'C-05', phone: '+254 700 000 205', status: 'Late' }
+])
+
 const lastTwoTenantPayments = ref<TenantPaymentItem[]>([
 	{ id: 1, tenantName: 'Faith Njeri', amount: 'Ksh 41,250', date: 'Apr 18, 2026' },
 	{ id: 2, tenantName: 'John Kariuki', amount: 'Ksh 38,500', date: 'Apr 16, 2026' }
@@ -389,6 +420,10 @@ const occupancyRate = computed(() => {
 const totalExpectedRent = computed(() => propertyPortfolio.value.reduce((sum, property) => sum + property.monthlyRentTotal, 0))
 const totalCollectedThisMonth = computed(() => monthlyCollections[4]?.amount ?? 0)
 const totalOutstandingArrears = computed(() => totalExpectedRent.value - totalCollectedThisMonth.value)
+
+const totalTenants = computed(() => tenantOverview.value.length)
+const currentTenants = computed(() => tenantOverview.value.filter((tenant) => tenant.status === 'Current').length)
+const followUpTenants = computed(() => tenantOverview.value.filter((tenant) => tenant.status === 'Late').length)
 
 const openMaintenanceCount = computed(() => maintenanceQueue.value.filter((ticket) => ticket.status === 'Open').length)
 const highestCollectionMonth = computed<MonthlyCollection>(() => {
