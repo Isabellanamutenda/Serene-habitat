@@ -40,6 +40,32 @@
             </article>
           </div>
 
+          <section class="card max-w-6xl mx-auto">
+            <h2 class="text-xl font-semibold text-slate-900">Tenant</h2>
+            <div class="mt-4 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+              <div>
+                <p class="text-sm text-slate-500">Email</p>
+                <p class="text-lg font-medium text-slate-900 mt-1">tenant@example.com</p>
+              </div>
+
+              <div class="flex items-center gap-2">
+                <button
+                  type="button"
+                  class="inline-flex items-center justify-center rounded-lg border border-slate-300 px-4 py-2 text-sm font-semibold text-slate-700 hover:bg-slate-100 transition-colors"
+                >
+                  Edit Profile
+                </button>
+
+                <button
+                  type="button"
+                  class="inline-flex items-center justify-center rounded-lg bg-slate-900 text-white px-4 py-2 text-sm font-semibold hover:opacity-95 transition-opacity"
+                >
+                  Message
+                </button>
+              </div>
+            </div>
+          </section>
+
           <section class="card space-y-3">
             <h2 class="text-xl font-semibold text-slate-900">What You Can Do Here</h2>
             <ul class="space-y-2 text-sm text-slate-600">
