@@ -82,8 +82,9 @@ onMounted(() => {
         .filter((entry) => entry.isIntersecting)
         .sort((a, b) => b.intersectionRatio - a.intersectionRatio)
 
-      if (visibleEntries.length > 0) {
-        activeSectionId.value = visibleEntries[0].target.id
+      const firstVisibleEntry = visibleEntries[0]
+      if (firstVisibleEntry) {
+        activeSectionId.value = firstVisibleEntry.target.id
       }
     },
     {
@@ -119,3 +120,4 @@ onBeforeUnmount(() => {
   }
 })
 </script>
+
