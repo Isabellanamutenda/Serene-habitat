@@ -1,3 +1,19 @@
+# RENTAL AGENCY
+
+## 🧱 Tech Stack
+
+### Frontend
+- Nuxt.js 4
+- Vue.js
+- TypeScript
+- Tailwind CSS 
+
+### Backend
+- Laravel (REST API)
+- MySQL
+
+### Deployment
+- Google Cloud Run (frontend)
 # Nuxt Minimal Starter
 
 Look at the [Nuxt documentation](https://nuxt.com/docs/getting-started/introduction) to learn more.
