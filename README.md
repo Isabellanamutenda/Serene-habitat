@@ -13,12 +13,13 @@
 - MySQL
 
 ### Deployment
-- Google Cloud Run (frontend)
-# Nuxt Minimal Starter
+- Netlify (frontend)
+## Nuxt Minimal Starter
 
 Look at the [Nuxt documentation](https://nuxt.com/docs/getting-started/introduction) to learn more.
 
 ## Setup
+- git clone (https://github.com/Isabellanamutenda/Serene-habitat.git)
 
 Make sure to install dependencies:
 

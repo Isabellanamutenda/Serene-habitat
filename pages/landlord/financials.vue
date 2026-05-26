@@ -47,12 +47,63 @@
                   </thead>
                   <tbody>
                     <tr v-for="payment in payments" :key="payment.tenant" class="border-b border-slate-50">
-                      <td class="py-3 pr-4 font-semibold text-slate-900">{{ payment.tenant }}</td>
+                      <td class="py-3 pr-4 font-semibold text-slate-900">
+                        <button
+                          class="text-sky-600 hover:underline font-semibold"
+                          @click="openTenant(payment)"
+                        >
+                          {{ payment.tenant }}
+                        </button>
+                      </td>
                       <td class="py-3 pr-4 text-emerald-700 font-semibold">{{ payment.amount }}</td>
                       <td class="py-3 text-slate-700">{{ payment.date }}</td>
                     </tr>
                   </tbody>
                 </table>
+              </div>
+            </div>
+            
+            <!-- Tenant transactions modal -->
+            <div
+              v-if="selectedTenant"
+              class="fixed inset-0 z-50 bg-slate-900/50 backdrop-blur-sm flex items-center justify-center p-4"
+              @click="closeTenant"
+            >
+              <div class="w-full max-w-2xl rounded-xl bg-white text-slate-800 p-6 shadow-2xl" @click.stop>
+                <div class="flex items-center justify-between">
+                  <h3 class="text-lg font-semibold">{{ selectedTenant.tenant }} — Recent Payments</h3>
+                  <button class="text-slate-500 hover:text-slate-800" @click="closeTenant">✕</button>
+                </div>
+
+                <div class="mt-4 grid grid-cols-1 lg:grid-cols-2 gap-4">
+                  <SharedCard title="Last 3 Transactions">
+                    <table class="w-full text-sm text-left text-slate-700">
+                      <thead class="text-slate-500">
+                        <tr>
+                          <th class="py-2">Date</th>
+                          <th class="py-2">Amount</th>
+                          <th class="py-2">Method</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr v-for="tx in lastThree" :key="tx.date" class="border-t border-slate-100">
+                          <td class="py-2">{{ tx.date }}</td>
+                          <td class="py-2">{{ tx.amount }}</td>
+                          <td class="py-2">{{ tx.method }}</td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </SharedCard>
+
+                  <SharedCard title="Payment Methods Summary">
+                    <ul class="text-sm space-y-2">
+                      <li v-for="m in paymentMethodsSummary" :key="m.method" class="flex items-center justify-between">
+                        <span>{{ m.method }}</span>
+                        <span class="text-slate-600">{{ m.count }} / 3</span>
+                      </li>
+                    </ul>
+                  </SharedCard>
+                </div>
               </div>
             </div>
           </section>
@@ -63,11 +114,72 @@
 </template>
 
 <script setup lang="ts">
+import { ref, computed } from 'vue'
 import LandlordSidebar from '~/components/landlord/LandlordSidebar.vue'
+import SharedCard from '~/components/shared/SharedCard.vue'
 
-const payments = [
-  { tenant: 'A. Mugo', amount: 'Ksh 45,000', date: 'Apr 20, 2026' },
-  { tenant: 'N. Wanjiku', amount: 'Ksh 38,500', date: 'Apr 18, 2026' },
-  { tenant: 'K. Otieno', amount: 'Ksh 41,250', date: 'Apr 17, 2026' }
+interface Transaction {
+  date: string
+  amount: string
+  method: string
+}
+
+interface PaymentRow {
+  tenant: string
+  amount: string
+  date: string
+  transactions: Transaction[]
+}
+
+const payments: PaymentRow[] = [
+  {
+    tenant: 'A. Mugo',
+    amount: 'Ksh 45,000',
+    date: 'Apr 20, 2026',
+    transactions: [
+      { date: 'Apr 20, 2026', amount: 'Ksh 45,000', method: 'M-Pesa' },
+      { date: 'Mar 20, 2026', amount: 'Ksh 45,000', method: 'Card' },
+      { date: 'Feb 20, 2026', amount: 'Ksh 45,000', method: 'M-Pesa' }
+    ]
+  },
+  {
+    tenant: 'N. Wanjiku',
+    amount: 'Ksh 38,500',
+    date: 'Apr 18, 2026',
+    transactions: [
+      { date: 'Apr 18, 2026', amount: 'Ksh 38,500', method: 'Bank Transfer' },
+      { date: 'Mar 18, 2026', amount: 'Ksh 38,500', method: 'Bank Transfer' },
+      { date: 'Feb 18, 2026', amount: 'Ksh 38,500', method: 'M-Pesa' }
+    ]
+  },
+  {
+    tenant: 'K. Otieno',
+    amount: 'Ksh 41,250',
+    date: 'Apr 17, 2026',
+    transactions: [
+      { date: 'Apr 17, 2026', amount: 'Ksh 41,250', method: 'Card' },
+      { date: 'Mar 17, 2026', amount: 'Ksh 41,250', method: 'Card' },
+      { date: 'Feb 17, 2026', amount: 'Ksh 41,250', method: 'Card' }
+    ]
+  }
 ]
+
+const selectedTenant = ref<PaymentRow | null>(null)
+
+const openTenant = (row: PaymentRow) => {
+  selectedTenant.value = row
+}
+
+const closeTenant = () => (selectedTenant.value = null)
+
+const lastThree = computed(() => selectedTenant.value ? selectedTenant.value.transactions.slice(0, 3) : [])
+
+const paymentMethodsSummary = computed(() => {
+  if (!selectedTenant.value) return [] as { method: string; count: number }[]
+  const map = new Map<string, number>()
+  selectedTenant.value.transactions.slice(0, 3).forEach(t => {
+    map.set(t.method, (map.get(t.method) || 0) + 1)
+  })
+  return Array.from(map.entries()).map(([method, count]) => ({ method, count }))
+})
 </script>
