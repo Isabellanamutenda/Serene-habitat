@@ -10,6 +10,8 @@
 
 ### Backend
 - Laravel (REST API)
+
+### Database
 - MySQL
 
 ### Deployment
