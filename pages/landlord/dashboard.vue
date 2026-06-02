@@ -5,47 +5,55 @@
 
 		<!-- Main content -->
 		<div class="flex-1 flex flex-col">
-			<!-- Page content -->
 			<main class="p-4 sm:p-6 flex-1">
-	<section id="overview" class="max-w-6xl mx-auto space-y-6 scroll-mt-6">
-		<header>
-			<h1 class="text-3xl sm:text-4xl font-bold text-slate-900">Landlord Dashboard</h1>
-			<p class="mt-2 text-slate-500 text-sm sm:text-base">Monitor unit readiness, maintenance tickets, service requests, and rent collections.</p>
-		</header>
+				<section id="overview" class="max-w-6xl mx-auto space-y-6 scroll-mt-6">
+					<header>
+						<h1 class="text-3xl sm:text-4xl font-bold text-slate-900">Landlord Dashboard</h1>
+						<p class="mt-2 text-slate-500 text-sm sm:text-base">Monitor unit readiness, maintenance tickets, service requests, and rent collections.</p>
+					</header>
 
-		<div class="grid grid-cols-1 md:grid-cols-3 gap-4">
-			<article class="bg-white rounded-2xl border border-slate-100 shadow-sm p-5">
-				<p class="text-sm text-slate-500">Open Tickets</p>
-				<p class="text-3xl font-semibold text-slate-800 mt-2">{{ openMaintenanceCount }}</p>
-			</article>
+					<div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+						<article class="bg-white rounded-2xl border border-slate-100 shadow-sm p-5">
+							<p class="text-sm text-slate-500">Open Tickets</p>
+							<p class="text-3xl font-semibold text-slate-800 mt-2">{{ openMaintenanceCount }}</p>
+						</article>
 
-			<article class="bg-white rounded-2xl border border-slate-100 shadow-sm p-5">
-				<p class="text-sm text-slate-500">Units Serviced</p>
-				<p class="text-3xl font-semibold text-slate-800 mt-2">27</p>
-			</article>
+						<article class="bg-white rounded-2xl border border-slate-100 shadow-sm p-5">
+							<p class="text-sm text-slate-500">Units Serviced</p>
+							<p class="text-3xl font-semibold text-slate-800 mt-2">27</p>
+						</article>
 
-			<article class="bg-white rounded-2xl border border-slate-100 shadow-sm p-5">
-				<p class="text-sm text-slate-500">Escalations</p>
-				<p class="text-3xl font-semibold text-slate-800 mt-2">2</p>
-			</article>
-		</div>
-
-		<p v-if="landlordMessage" class="text-sm font-medium text-[#00696b]">{{ landlordMessage }}</p>
-
-		<div class="grid grid-cols-1 xl:grid-cols-12 gap-6 items-start">
-			<section id="tenants" class="xl:col-span-7 bg-white rounded-2xl border border-slate-100 shadow-sm p-5 sm:p-6 scroll-mt-6">
-				<header class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
-					<div>
-						<h2 class="text-xl font-semibold text-slate-900">Tenants</h2>
-						<p class="text-sm text-slate-500">Live tenant snapshot with occupancy and follow-up status.</p>
+						<article class="bg-white rounded-2xl border border-slate-100 shadow-sm p-5">
+							<p class="text-sm text-slate-500">Escalations</p>
+							<p class="text-3xl font-semibold text-slate-800 mt-2">2</p>
+						</article>
 					</div>
-					<NuxtLink
-						to="/landlord/tenants"
-						class="inline-flex items-center justify-center rounded-lg border border-slate-300 px-4 py-2 text-sm font-semibold text-slate-700 hover:bg-slate-100 transition-colors"
-					>
-						View full tenants page
-					</NuxtLink>
-				</header>
+
+					<p v-if="landlordMessage" class="text-sm font-medium text-[#00696b]">{{ landlordMessage }}</p>
+
+					<div class="grid grid-cols-1 xl:grid-cols-12 gap-6 items-start">
+						<section id="tenants" class="xl:col-span-7 bg-white rounded-2xl border border-slate-100 shadow-sm p-5 sm:p-6 scroll-mt-6">
+							<header class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
+								<div>
+									<h2 class="text-xl font-semibold text-slate-900">Tenants</h2>
+									<p class="text-sm text-slate-500">Live tenant snapshot with occupancy and follow-up status.</p>
+								</div>
+								<div class="flex flex-wrap gap-3">
+									<button
+										type="button"
+										class="inline-flex items-center justify-center rounded-lg bg-[#00696b] px-4 py-2 text-sm font-semibold text-white hover:bg-[#005255] transition-colors"
+										@click="openAddTenantModal"
+									>
+										Add tenant
+									</button>
+									<NuxtLink
+										to="/landlord/tenants"
+										class="inline-flex items-center justify-center rounded-lg border border-slate-300 px-4 py-2 text-sm font-semibold text-slate-700 hover:bg-slate-100 transition-colors"
+									>
+										View full tenants page
+									</NuxtLink>
+								</div>
+							</header>
 
 				<div class="mt-4 grid grid-cols-1 sm:grid-cols-3 gap-4">
 					<article class="rounded-xl border border-slate-100 bg-slate-50 p-4">
@@ -90,8 +98,8 @@
 							</tr>
 						</tbody>
 					</table>
-				</div>
-			</section>
+					</div>
+				</section>
 
 			<section id="maintenance" class="xl:col-span-5 bg-white rounded-2xl border border-slate-100 shadow-sm p-5 sm:p-6 scroll-mt-6">
 				<header>
@@ -304,9 +312,114 @@
 				<PaymentHistory :transactions="transactions" />
 			</div>
 		</div>
-	</section>
+			</section>
 			</main>
 		</div>
+	</div>
+
+	<div
+				v-if="isAddTenantModalOpen"
+				class="fixed inset-0 z-50 flex items-center justify-center bg-slate-900/60 p-4"
+				@click.self="closeAddTenantModal"
+			>
+				<section class="w-full max-w-3xl overflow-hidden rounded-3xl bg-white shadow-2xl">
+					<header class="flex items-start justify-between gap-4 border-b border-slate-100 p-5 sm:p-6">
+						<div>
+							<h2 class="text-2xl font-bold text-slate-900">Add tenant</h2>
+							<p class="mt-2 text-sm text-slate-500">Create a new tenant record and send it to your backend.</p>
+						</div>
+
+						<button
+							type="button"
+							class="inline-flex h-9 w-9 items-center justify-center rounded-lg border border-slate-300 text-lg font-semibold leading-none text-slate-600 hover:bg-slate-100"
+							aria-label="Close add tenant modal"
+							@click="closeAddTenantModal"
+						>
+							x
+						</button>
+					</header>
+
+					<form class="p-5 sm:p-6" @submit.prevent="submitTenant">
+						<div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+							<label class="block text-sm">
+								<span class="mb-2 block font-medium text-slate-700">Full name</span>
+								<input v-model="tenantDraft.name" type="text" required class="w-full rounded-lg border border-slate-300 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-[#00696b]" placeholder="Tenant name" />
+							</label>
+
+							<label class="block text-sm">
+								<span class="mb-2 block font-medium text-slate-700">Unit</span>
+								<input v-model="tenantDraft.unit" type="text" required class="w-full rounded-lg border border-slate-300 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-[#00696b]" placeholder="Unit number" />
+							</label>
+
+							<label class="block text-sm">
+								<span class="mb-2 block font-medium text-slate-700">Phone</span>
+								<input v-model="tenantDraft.phone" type="tel" required class="w-full rounded-lg border border-slate-300 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-[#00696b]" placeholder="+254 ..." />
+							</label>
+
+							<label class="block text-sm">
+								<span class="mb-2 block font-medium text-slate-700">Email</span>
+								<input v-model="tenantDraft.email" type="email" required class="w-full rounded-lg border border-slate-300 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-[#00696b]" placeholder="tenant@example.com" />
+							</label>
+
+							<label class="block text-sm">
+								<span class="mb-2 block font-medium text-slate-700">Apartment</span>
+								<input v-model="tenantDraft.apartment" type="text" class="w-full rounded-lg border border-slate-300 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-[#00696b]" placeholder="A-1" />
+							</label>
+
+							<label class="block text-sm">
+								<span class="mb-2 block font-medium text-slate-700">Status</span>
+								<select v-model="tenantDraft.status" class="w-full rounded-lg border border-slate-300 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-[#00696b]">
+									<option value="Current">Current</option>
+									<option value="Late">Late</option>
+								</select>
+							</label>
+
+							<label class="block text-sm">
+								<span class="mb-2 block font-medium text-slate-700">National ID</span>
+								<input v-model="tenantDraft.nationalId" type="text" class="w-full rounded-lg border border-slate-300 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-[#00696b]" placeholder="ID number" />
+							</label>
+
+							<label class="block text-sm">
+								<span class="mb-2 block font-medium text-slate-700">Monthly rent</span>
+								<input v-model="tenantDraft.monthlyRent" type="text" class="w-full rounded-lg border border-slate-300 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-[#00696b]" placeholder="Ksh 45,000" />
+							</label>
+
+							<label class="block text-sm">
+								<span class="mb-2 block font-medium text-slate-700">Lease start</span>
+								<input v-model="tenantDraft.leaseStart" type="text" class="w-full rounded-lg border border-slate-300 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-[#00696b]" placeholder="Jan 1, 2026" />
+							</label>
+
+							<label class="block text-sm">
+								<span class="mb-2 block font-medium text-slate-700">Lease end</span>
+								<input v-model="tenantDraft.leaseEnd" type="text" class="w-full rounded-lg border border-slate-300 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-[#00696b]" placeholder="Dec 31, 2026" />
+							</label>
+
+							<label class="block text-sm sm:col-span-2">
+								<span class="mb-2 block font-medium text-slate-700">Emergency contact</span>
+								<input v-model="tenantDraft.emergencyContact" type="text" class="w-full rounded-lg border border-slate-300 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-[#00696b]" placeholder="Name and phone" />
+							</label>
+						</div>
+
+						<p v-if="tenantFormError" class="mt-4 text-sm font-medium text-rose-700">{{ tenantFormError }}</p>
+
+						<div class="mt-6 flex flex-col-reverse sm:flex-row gap-3 sm:justify-end">
+							<button
+								type="button"
+								class="rounded-lg border border-slate-300 px-4 py-2 text-sm font-semibold text-slate-700 hover:bg-slate-100"
+								@click="closeAddTenantModal"
+							>
+								Cancel
+							</button>
+							<button
+								type="submit"
+								class="rounded-lg bg-[#00696b] px-4 py-2 text-sm font-semibold text-white disabled:cursor-not-allowed disabled:bg-slate-400"
+								:disabled="isSubmittingTenant"
+							>
+								{{ isSubmittingTenant ? 'Saving...' : 'Save tenant' }}
+							</button>
+						</div>
+					</form>
+</section>
 	</div>
 </template>
 
@@ -336,6 +449,20 @@ type TenantOverviewItem = {
 	unit: string
 	phone: string
 	status: 'Current' | 'Late'
+}
+
+type TenantCreatePayload = {
+	name: string
+	unit: string
+	phone: string
+	email: string
+	apartment: string
+	status: TenantOverviewItem['status']
+	nationalId: string
+	monthlyRent: string
+	leaseStart: string
+	leaseEnd: string
+	emergencyContact: string
 }
 
 type TenantPaymentItem = {
@@ -407,6 +534,27 @@ const maintenanceQueue = ref<MaintenanceItem[]>([
 ])
 
 const landlordMessage = ref('')
+const isAddTenantModalOpen = ref(false)
+const isSubmittingTenant = ref(false)
+const tenantFormError = ref('')
+
+function createTenantDraft(): TenantCreatePayload {
+	return {
+		name: '',
+		unit: '',
+		phone: '',
+		email: '',
+		apartment: '',
+		status: 'Current',
+		nationalId: '',
+		monthlyRent: '',
+		leaseStart: '',
+		leaseEnd: '',
+		emergencyContact: ''
+	}
+}
+
+const tenantDraft = ref<TenantCreatePayload>(createTenantDraft())
 
 const totalProperties = computed(() => propertyPortfolio.value.length)
 const totalUnits = computed(() => propertyPortfolio.value.reduce((sum, property) => sum + property.totalUnits, 0))
@@ -491,5 +639,56 @@ function markResolved(ticketId: number) {
 	})
 
 	landlordMessage.value = 'Ticket marked as resolved.'
+}
+
+function openAddTenantModal() {
+	tenantFormError.value = ''
+	tenantDraft.value = createTenantDraft()
+	isAddTenantModalOpen.value = true
+}
+
+function closeAddTenantModal() {
+	isAddTenantModalOpen.value = false
+	tenantFormError.value = ''
+	tenantDraft.value = createTenantDraft()
+}
+
+function normalizeTenantOverview(tenant: Partial<TenantCreatePayload>): TenantOverviewItem {
+	return {
+		name: tenant.name?.trim() || 'Unnamed tenant',
+		unit: tenant.unit?.trim() || '—',
+		phone: tenant.phone?.trim() || '—',
+		status: tenant.status === 'Late' ? 'Late' : 'Current'
+	}
+}
+
+async function submitTenant() {
+	if (!tenantDraft.value.name.trim() || !tenantDraft.value.unit.trim() || !tenantDraft.value.phone.trim() || !tenantDraft.value.email.trim()) {
+		tenantFormError.value = 'Name, unit, phone, and email are required.'
+		return
+	}
+
+	const endpoint = '/api/tenants'
+	isSubmittingTenant.value = true
+	tenantFormError.value = ''
+
+	try {
+		const response = await $fetch(endpoint, {
+			method: 'POST',
+			body: tenantDraft.value
+		}) as { tenant?: Partial<TenantCreatePayload> } | Partial<TenantCreatePayload> | null
+		const createdTenant = response && typeof response === 'object' && 'tenant' in response
+			? response.tenant ?? tenantDraft.value
+			: response ?? tenantDraft.value
+		const overviewItem = normalizeTenantOverview(createdTenant as Partial<TenantCreatePayload>)
+
+		tenantOverview.value = [overviewItem, ...tenantOverview.value]
+		landlordMessage.value = `${overviewItem.name} added successfully.`
+		closeAddTenantModal()
+	} catch (error) {
+		tenantFormError.value = 'Unable to add tenant right now. Check the endpoint and try again.'
+	} finally {
+		isSubmittingTenant.value = false
+	}
 }
 </script>
