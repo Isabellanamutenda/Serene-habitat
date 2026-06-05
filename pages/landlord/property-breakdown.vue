@@ -187,6 +187,73 @@
               </article>
             </div>
           </section>
+
+          <div
+            v-if="selectedProperty"
+            class="fixed inset-0 z-50 bg-slate-900/50 backdrop-blur-sm flex items-center justify-center p-4"
+            @click="closeProperty"
+          >
+            <div class="w-full max-w-3xl rounded-2xl bg-white text-slate-800 p-6 shadow-2xl" @click.stop>
+              <div class="flex items-start justify-between gap-4">
+                <div>
+                  <h2 class="text-2xl font-bold text-slate-900">{{ selectedProperty.name }}</h2>
+                  <p class="mt-1 text-sm text-slate-500">{{ selectedProperty.location }} · {{ selectedProperty.units }} units</p>
+                </div>
+                <button
+                  class="text-slate-500 hover:text-slate-900 transition-colors"
+                  aria-label="Close property details"
+                  @click="closeProperty"
+                >
+                  ✕
+                </button>
+              </div>
+
+              <div class="mt-5 grid grid-cols-1 sm:grid-cols-3 gap-4">
+                <article class="rounded-xl border border-slate-100 bg-slate-50 p-4">
+                  <p class="text-xs uppercase tracking-wide text-slate-500">Total Rooms</p>
+                  <p class="mt-2 text-2xl font-semibold text-slate-900">{{ selectedProperty.details.totalRooms }}</p>
+                </article>
+                <article class="rounded-xl border border-slate-100 bg-slate-50 p-4">
+                  <p class="text-xs uppercase tracking-wide text-slate-500">Bedrooms</p>
+                  <p class="mt-2 text-2xl font-semibold text-slate-900">{{ selectedProperty.details.bedrooms }}</p>
+                </article>
+                <article class="rounded-xl border border-slate-100 bg-slate-50 p-4">
+                  <p class="text-xs uppercase tracking-wide text-slate-500">Ensuite Units</p>
+                  <p class="mt-2 text-2xl font-semibold text-slate-900">{{ selectedProperty.details.ensuiteUnits }}</p>
+                </article>
+              </div>
+
+              <div class="mt-6 grid grid-cols-1 lg:grid-cols-2 gap-4">
+                <section class="rounded-xl border border-slate-100 p-4">
+                  <h3 class="text-lg font-semibold text-slate-900">Unit Breakdown</h3>
+                  <ul class="mt-3 space-y-2 text-sm text-slate-700">
+                    <li v-for="item in selectedProperty.details.roomTypes" :key="item.label" class="flex items-center justify-between border-b border-slate-100 pb-2 last:border-b-0 last:pb-0">
+                      <span>{{ item.label }}</span>
+                      <span class="font-semibold text-slate-900">{{ item.count }}</span>
+                    </li>
+                  </ul>
+                </section>
+
+                <section class="rounded-xl border border-slate-100 p-4">
+                  <h3 class="text-lg font-semibold text-slate-900">More Details</h3>
+                  <dl class="mt-3 space-y-3 text-sm">
+                    <div class="flex items-center justify-between gap-4 border-b border-slate-100 pb-2">
+                      <dt class="text-slate-500">Average Rent per Unit</dt>
+                      <dd class="font-semibold text-slate-900">{{ selectedProperty.details.averageRent }}</dd>
+                    </div>
+                    <div class="flex items-center justify-between gap-4 border-b border-slate-100 pb-2">
+                      <dt class="text-slate-500">Occupied Units</dt>
+                      <dd class="font-semibold text-slate-900">{{ selectedProperty.details.occupiedUnits }}</dd>
+                    </div>
+                    <div class="flex items-center justify-between gap-4">
+                      <dt class="text-slate-500">Vacant Units</dt>
+                      <dd class="font-semibold text-slate-900">{{ selectedProperty.details.vacantUnits }}</dd>
+                    </div>
+                  </dl>
+                </section>
+              </div>
+            </div>
+          </div>
         </section>
       </main>
     </div>
@@ -439,4 +506,95 @@ function closeModal() {
 }
 
 
+<script setup lang="ts">
+import { ref } from 'vue'
+import LandlordSidebar from '~/components/landlord/LandlordSidebar.vue'
+
+interface PropertyDetail {
+  totalRooms: number
+  bedrooms: number
+  ensuiteUnits: number
+  roomTypes: Array<{ label: string; count: number }>
+  averageRent: string
+  occupiedUnits: number
+  vacantUnits: number
+}
+
+interface PropertyRow {
+  name: string
+  location: string
+  units: number
+  rent: string
+  details: PropertyDetail
+}
+
+const properties: PropertyRow[] = [
+  {
+    name: 'Riverside Suites',
+    location: 'Westlands',
+    units: 18,
+    rent: 'Ksh 1.2M',
+    details: {
+      totalRooms: 54,
+      bedrooms: 36,
+      ensuiteUnits: 12,
+      roomTypes: [
+        { label: 'Studio units', count: 6 },
+        { label: '1-bedroom units', count: 8 },
+        { label: '2-bedroom units', count: 4 }
+      ],
+      averageRent: 'Ksh 66,700',
+      occupiedUnits: 16,
+      vacantUnits: 2
+    }
+  },
+  {
+    name: 'Downtown Plaza',
+    location: 'CBD',
+    units: 22,
+    rent: 'Ksh 1.5M',
+    details: {
+      totalRooms: 66,
+      bedrooms: 44,
+      ensuiteUnits: 15,
+      roomTypes: [
+        { label: 'Studio units', count: 4 },
+        { label: '1-bedroom units', count: 12 },
+        { label: '2-bedroom units', count: 6 }
+      ],
+      averageRent: 'Ksh 68,200',
+      occupiedUnits: 20,
+      vacantUnits: 2
+    }
+  },
+  {
+    name: 'Green Valley',
+    location: 'Kileleshwa',
+    units: 14,
+    rent: 'Ksh 980K',
+    details: {
+      totalRooms: 42,
+      bedrooms: 28,
+      ensuiteUnits: 10,
+      roomTypes: [
+        { label: 'Studio units', count: 3 },
+        { label: '1-bedroom units', count: 7 },
+        { label: '2-bedroom units', count: 4 }
+      ],
+      averageRent: 'Ksh 70,000',
+      occupiedUnits: 13,
+      vacantUnits: 1
+    }
+  }
+]
+
+const selectedProperty = ref<PropertyRow | null>(null)
+
+const openProperty = (property: PropertyRow) => {
+  selectedProperty.value = property
+}
+
+const closeProperty = () => {
+  selectedProperty.value = null
+}
 </script>

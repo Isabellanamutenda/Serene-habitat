@@ -1,8 +1,27 @@
-# Nuxt Minimal Starter
+# RENTAL AGENCY
+
+## 🧱 Tech Stack
+
+### Frontend
+- Nuxt.js 4
+- Vue.js
+- TypeScript
+- Tailwind CSS 
+
+### Backend
+- Laravel (REST API)
+
+### Database
+- MySQL
+
+### Deployment
+- Netlify (frontend)
+## Nuxt Minimal Starter
 
 Look at the [Nuxt documentation](https://nuxt.com/docs/getting-started/introduction) to learn more.
 
 ## Setup
+- git clone (https://github.com/Isabellanamutenda/Serene-habitat.git)
 
 Make sure to install dependencies:
 
