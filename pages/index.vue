@@ -1,52 +1,35 @@
 <template>
-  <div class="min-h-screen bg-[radial-gradient(circle_at_top_left,_rgba(0,105,107,0.15),_transparent_34%),linear-gradient(180deg,_#eef5f4_0%,_#dce9e7_100%)] text-slate-800">
-    <main class="mx-auto flex min-h-screen w-full max-w-6xl items-center px-4 py-10 sm:px-6 lg:px-8">
-      <section class="grid w-full gap-8 rounded-[2rem] border border-white/70 bg-white/80 p-6 shadow-[0_20px_60px_rgba(15,23,42,0.1)] backdrop-blur md:grid-cols-[1.1fr_0.9fr] md:p-8">
-        <div class="space-y-6">
-          <p class="text-sm font-semibold uppercase tracking-[0.35em] text-[#00696b]">Serene Habitat</p>
-          <h1 class="max-w-xl text-4xl font-bold tracking-tight text-slate-900 sm:text-5xl">
-            One login for tenants, landlords, and admins.
-          </h1>
-          <p class="max-w-lg text-base leading-7 text-slate-500">
-            Use the shared sign-in form to enter your email and password, then continue to the dashboard for your role.
-          </p>
+  <div class="relative min-h-screen h-screen overflow-hidden bg-slate-950 text-white">
+    <div class="absolute inset-0 h-full w-full bg-fixed bg-cover bg-center" style="background-image: url('https://images.unsplash.com/photo-1512453979798-5ea266f8880c?auto=format&fit=crop&w=1600&q=80');"></div>
+    <div class="absolute inset-0 bg-slate-950/75"></div>
 
-          <div class="flex flex-wrap gap-3">
-            <NuxtLink to="/login" class="rounded-full bg-[#00696b] px-5 py-3 text-sm font-semibold text-white shadow-sm transition hover:bg-[#004d4f]">
-              Go to Login
-            </NuxtLink>
-            <NuxtLink to="/register" class="rounded-full border border-slate-300 px-5 py-3 text-sm font-semibold text-slate-700 transition hover:bg-slate-50">
-              Create Account
-            </NuxtLink>
-            <NuxtLink to="/tenant/dashboard" class="rounded-full border border-slate-300 px-5 py-3 text-sm font-semibold text-slate-700 transition hover:bg-slate-50">
-              View Tenant Demo
-            </NuxtLink>
-          </div>
-        </div>
+    <main class="relative mx-auto flex min-h-screen max-w-7xl flex-col justify-center px-6 py-10 sm:px-8 lg:px-12">
+      <div class="max-w-3xl space-y-8">
+        <span class="inline-flex items-center rounded-full bg-cyan-400/15 px-4 py-1 text-xs font-semibold uppercase tracking-[0.35em] text-cyan-200">
+          Welcome to Rental Agency
+        </span>
+        <h1 class="text-5xl font-semibold tracking-tight text-white sm:text-6xl">
+          Nairobi rental management with a beautiful city view.
+        </h1>
+        <p class="max-w-2xl text-lg leading-8 text-slate-200/90">
+          Build a smooth rental experience for tenants, landlords, and admins with a landing page that opens with Nairobi’s energy.
+        </p>
 
-        <div class="grid gap-4">
-          <NuxtLink to="/login" class="rounded-2xl border border-slate-200 bg-white p-5 transition hover:border-[#00696b] hover:shadow-sm">
-            <p class="text-sm font-semibold text-slate-900">Login form</p>
-            <p class="mt-2 text-sm leading-6 text-slate-500">Enter email, password, and role in one place.</p>
+        <div class="flex flex-wrap gap-4">
+          <NuxtLink
+            to="/login"
+            class="inline-flex items-center justify-center rounded-full bg-cyan-400 px-6 py-3 text-sm font-semibold text-slate-950 transition hover:bg-cyan-300"
+          >
+            Login
           </NuxtLink>
-          <NuxtLink to="/register" class="rounded-2xl border border-slate-200 bg-white p-5 transition hover:border-[#00696b] hover:shadow-sm">
-            <p class="text-sm font-semibold text-slate-900">Registration form</p>
-            <p class="mt-2 text-sm leading-6 text-slate-500">Full names, email, password confirmation, and consent.</p>
-          </NuxtLink>
-          <NuxtLink to="/tenant/dashboard" class="rounded-2xl border border-slate-200 bg-white p-5 transition hover:border-[#00696b] hover:shadow-sm">
-            <p class="text-sm font-semibold text-slate-900">Tenant dashboard</p>
-            <p class="mt-2 text-sm leading-6 text-slate-500">Payments, rewards, and property details.</p>
-          </NuxtLink>
-          <NuxtLink to="/landlord/dashboard" class="rounded-2xl border border-slate-200 bg-white p-5 transition hover:border-[#00696b] hover:shadow-sm">
-            <p class="text-sm font-semibold text-slate-900">Landlord dashboard</p>
-            <p class="mt-2 text-sm leading-6 text-slate-500">Collections, tickets, and unit controls.</p>
-          </NuxtLink>
-          <NuxtLink to="/admin/dashboard" class="rounded-2xl border border-slate-200 bg-white p-5 transition hover:border-[#00696b] hover:shadow-sm">
-            <p class="text-sm font-semibold text-slate-900">Admin dashboard</p>
-            <p class="mt-2 text-sm leading-6 text-slate-500">Occupancy and system status at a glance.</p>
+          <NuxtLink
+            to="/register"
+            class="inline-flex items-center justify-center rounded-full border border-white/30 bg-white/10 px-6 py-3 text-sm font-semibold text-white transition hover:border-cyan-300 hover:bg-white/20"
+          >
+            Register
           </NuxtLink>
         </div>
-      </section>
+      </div>
     </main>
   </div>
 </template>

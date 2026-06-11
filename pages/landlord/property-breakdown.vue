@@ -375,6 +375,19 @@ const properties = [
     location: 'Westlands',
     units: 18,
     rent: 'Ksh 45,000',
+    details: {
+      totalRooms: 54,
+      bedrooms: 36,
+      ensuiteUnits: 12,
+      roomTypes: [
+        { label: 'Studio units', count: 6 },
+        { label: '1-bedroom units', count: 8 },
+        { label: '2-bedroom units', count: 4 }
+      ],
+      averageRent: 'Ksh 66,700',
+      occupiedUnits: 16,
+      vacantUnits: 2
+    },
     bedrooms: 'Studio',
     bathrooms: '1',
     area: '34 sqm',
@@ -398,6 +411,19 @@ const properties = [
     location: 'CBD, Nairobi',
     units: 22,
     rent: 'Ksh 68,000',
+    details: {
+      totalRooms: 66,
+      bedrooms: 44,
+      ensuiteUnits: 15,
+      roomTypes: [
+        { label: 'Studio units', count: 4 },
+        { label: '1-bedroom units', count: 12 },
+        { label: '2-bedroom units', count: 6 }
+      ],
+      averageRent: 'Ksh 68,200',
+      occupiedUnits: 20,
+      vacantUnits: 2
+    },
     bedrooms: '1',
     bathrooms: '1',
     area: '58 sqm',
@@ -427,6 +453,19 @@ const properties = [
     location: 'Kileleshwa, Nairobi',
     units: 14,
     rent: 'Ksh 95,000',
+    details: {
+      totalRooms: 42,
+      bedrooms: 28,
+      ensuiteUnits: 10,
+      roomTypes: [
+        { label: 'Studio units', count: 3 },
+        { label: '1-bedroom units', count: 7 },
+        { label: '2-bedroom units', count: 4 }
+      ],
+      averageRent: 'Ksh 70,000',
+      occupiedUnits: 13,
+      vacantUnits: 1
+    },
     bedrooms: '2',
     bathrooms: '2',
     area: '92 sqm',
@@ -505,11 +544,6 @@ function closeModal() {
   modalProperty.value = null
 }
 
-
-<script setup lang="ts">
-import { ref } from 'vue'
-import LandlordSidebar from '~/components/landlord/LandlordSidebar.vue'
-
 interface PropertyDetail {
   totalRooms: number
   bedrooms: number
@@ -527,66 +561,6 @@ interface PropertyRow {
   rent: string
   details: PropertyDetail
 }
-
-const properties: PropertyRow[] = [
-  {
-    name: 'Riverside Suites',
-    location: 'Westlands',
-    units: 18,
-    rent: 'Ksh 1.2M',
-    details: {
-      totalRooms: 54,
-      bedrooms: 36,
-      ensuiteUnits: 12,
-      roomTypes: [
-        { label: 'Studio units', count: 6 },
-        { label: '1-bedroom units', count: 8 },
-        { label: '2-bedroom units', count: 4 }
-      ],
-      averageRent: 'Ksh 66,700',
-      occupiedUnits: 16,
-      vacantUnits: 2
-    }
-  },
-  {
-    name: 'Downtown Plaza',
-    location: 'CBD',
-    units: 22,
-    rent: 'Ksh 1.5M',
-    details: {
-      totalRooms: 66,
-      bedrooms: 44,
-      ensuiteUnits: 15,
-      roomTypes: [
-        { label: 'Studio units', count: 4 },
-        { label: '1-bedroom units', count: 12 },
-        { label: '2-bedroom units', count: 6 }
-      ],
-      averageRent: 'Ksh 68,200',
-      occupiedUnits: 20,
-      vacantUnits: 2
-    }
-  },
-  {
-    name: 'Green Valley',
-    location: 'Kileleshwa',
-    units: 14,
-    rent: 'Ksh 980K',
-    details: {
-      totalRooms: 42,
-      bedrooms: 28,
-      ensuiteUnits: 10,
-      roomTypes: [
-        { label: 'Studio units', count: 3 },
-        { label: '1-bedroom units', count: 7 },
-        { label: '2-bedroom units', count: 4 }
-      ],
-      averageRent: 'Ksh 70,000',
-      occupiedUnits: 13,
-      vacantUnits: 1
-    }
-  }
-]
 
 const selectedProperty = ref<PropertyRow | null>(null)
 
