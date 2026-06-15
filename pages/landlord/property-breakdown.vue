@@ -336,11 +336,16 @@ const heroProperty = {
   bedrooms: 'Studio',
   bathrooms: '1',
   area: '34 sqm',
-  image: 'https://images.unsplash.com/photo-1658218729615-167c32d70537?q=80&w=1738&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
+  image: '/images/riverside-suites/image.png',
   gallery: [
-    'https://images.unsplash.com/photo-1658218729615-167c32d70537?q=80&w=1738&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
-    'https://images.unsplash.com/photo-1658218635253-64728f6234be?q=80&w=1738&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
-    'https://images.unsplash.com/photo-1625667782817-228e40c66aba?q=80&w=1752&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'
+    '/images/riverside-suites/image.png',
+    '/images/riverside-suites/image copy.png',
+    '/images/riverside-suites/image copy 2.png',
+    '/images/riverside-suites/image copy 3.png',
+    '/images/riverside-suites/image copy 4.png',
+    '/images/riverside-suites/image copy 5.png',
+    '/images/riverside-suites/image copy 6.png',
+    '/images/riverside-suites/image copy 7.png'
   ],
   unfurnishedImage: 'https://images.unsplash.com/photo-1505693416388-ac5ce068fe85?auto=format&fit=crop&w=1600&q=80',
   unfurnishedGallery: [
@@ -391,11 +396,16 @@ const properties = [
     bedrooms: 'Studio',
     bathrooms: '1',
     area: '34 sqm',
-    image: 'https://images.unsplash.com/photo-1658218729615-167c32d70537?q=80&w=1738&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
+    image: '/images/riverside-suites/image.png',
     gallery: [
-      'https://images.unsplash.com/photo-1658218729615-167c32d70537?q=80&w=1738&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
-      'https://images.unsplash.com/photo-1658218635253-64728f6234be?q=80&w=1738&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
-      'https://images.unsplash.com/photo-1625667782817-228e40c66aba?q=80&w=1752&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'
+      '/images/riverside-suites/image.png',
+      '/images/riverside-suites/image copy.png',
+      '/images/riverside-suites/image copy 2.png',
+      '/images/riverside-suites/image copy 3.png',
+      '/images/riverside-suites/image copy 4.png',
+      '/images/riverside-suites/image copy 5.png',
+      '/images/riverside-suites/image copy 6.png',
+      '/images/riverside-suites/image copy 7.png'
     ],
     unfurnishedImage: 'https://images.unsplash.com/photo-1484154218962-a197022b5858?auto=format&fit=crop&w=1200&q=80',
     unfurnishedGallery: [
