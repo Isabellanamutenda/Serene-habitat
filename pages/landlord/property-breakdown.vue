@@ -427,22 +427,21 @@ const properties = [
     bedrooms: '1',
     bathrooms: '1',
     area: '58 sqm',
-    image: 'https://images.unsplash.com/photo-1658218635253-64728f6234be?q=80&w=1738&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
+    image: '/images/downtown-plaza/WhatsApp Image 2025-03-24 at 22.38.15.jpeg',
     gallery: [
-      'https://images.unsplash.com/photo-1658218635253-64728f6234be?q=80&w=1738&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
-      'https://images.unsplash.com/photo-1658218729615-167c32d70537?q=80&w=1738&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
-      'https://images.unsplash.com/photo-1625667782817-228e40c66aba?q=80&w=1752&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'
+      '/images/downtown-plaza/WhatsApp Image 2025-03-24 at 22.38.15.jpeg',
+      '/images/downtown-plaza/WhatsApp Image 2025-03-24 at 22.38.14.jpeg',
+      '/images/downtown-plaza/WhatsApp Image 2025-03-24 at 22.38.09.jpeg',
+      '/images/downtown-plaza/WhatsApp Image 2025-03-24 at 22.38.08.jpeg',
+      '/images/downtown-plaza/WhatsApp Image 2025-03-24 at 22.38.08 (1).jpeg',
+      '/images/downtown-plaza/WhatsApp Image 2025-03-24 at 22.38.07.jpeg',
+      '/images/downtown-plaza/WhatsApp Image 2025-03-24 at 22.37.57.jpeg',
+      '/images/downtown-plaza/WhatsApp Image 2025-03-24 at 22.38.05.jpeg'
     ],
     unfurnishedImage: 'https://images.unsplash.com/photo-1505693416388-ac5ce068fe85?auto=format&fit=crop&w=1600&q=80',
     unfurnishedGallery: [
       'https://images.unsplash.com/photo-1505693416388-ac5ce068fe85?auto=format&fit=crop&w=1600&q=80'
     ],
-    variants: [
-      { key: 'studio', label: 'Studio', furnishedGallery: nairobiImages.furnished.studio, unfurnishedGallery: nairobiImages.unfurnished.studio },
-      { key: 'oneBedroom', label: '1 Bedroom', furnishedGallery: nairobiImages.furnished.oneBedroom, unfurnishedGallery: nairobiImages.unfurnished.oneBedroom },
-      { key: 'twoBedroom', label: '2 Bedroom', furnishedGallery: nairobiImages.furnished.twoBedroom, unfurnishedGallery: nairobiImages.unfurnished.twoBedroom }
-    ],
-    defaultVariant: 'oneBedroom',
     features: ['Lounge seating', 'Dining nook', 'En-suite bath'],
     furnishings: 'Upholstered sofa set, dining table, king-size bed, bedside lamps, sleek storage, throw pillows, and a designer rug.',
     description: 'This one bedroom pairs a calm living room with a private sleeping area, creating a cozy but upscale furnished home.'
@@ -469,22 +468,20 @@ const properties = [
     bedrooms: '2',
     bathrooms: '2',
     area: '92 sqm',
-    image: 'https://images.unsplash.com/photo-1658218635253-64728f6234be?q=80&w=1738&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
+    image: '/images/greenvalley/image.png',
     gallery: [
-      'https://images.unsplash.com/photo-1658218635253-64728f6234be?q=80&w=1738&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
-      'https://images.unsplash.com/photo-1658218729615-167c32d70537?q=80&w=1738&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
-      'https://images.unsplash.com/photo-1625667782817-228e40c66aba?q=80&w=1752&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'
+      '/images/greenvalley/image.png',
+      '/images/greenvalley/image copy.png',
+      '/images/greenvalley/image copy 2.png',
+      '/images/greenvalley/image copy 3.png',
+      '/images/greenvalley/image copy 4.png',
+      '/images/greenvalley/image copy 5.png',
+      '/images/greenvalley/image copy 7.png'
     ],
     unfurnishedImage: 'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=1200&q=80',
     unfurnishedGallery: [
       'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=1200&q=80'
     ],
-    variants: [
-      { key: 'studio', label: 'Studio', furnishedGallery: nairobiImages.furnished.studio, unfurnishedGallery: nairobiImages.unfurnished.studio },
-      { key: 'oneBedroom', label: '1 Bedroom', furnishedGallery: nairobiImages.furnished.oneBedroom, unfurnishedGallery: nairobiImages.unfurnished.oneBedroom },
-      { key: 'twoBedroom', label: '2 Bedroom', furnishedGallery: nairobiImages.furnished.twoBedroom, unfurnishedGallery: nairobiImages.unfurnished.twoBedroom }
-    ],
-    defaultVariant: 'twoBedroom',
     features: ['Family lounge', 'Master suite', 'Dining area'],
     furnishings: 'Large sectional sofa, six-seater dining set, two complete bedrooms, soft area rugs, smart storage, and layered lighting.',
     description: 'Ideal for professionals, couples, or small families who want more breathing room without losing the furnished luxury feel.'
@@ -511,19 +508,27 @@ function prevImage() {
 }
 
 function getVariant(property: any, variantKey: string) {
-  return (property.variants || []).find((variant: any) => variant.key === variantKey) || property.variants?.[0] || null
+  if (!property.variants?.length) return null
+  return property.variants.find((variant: any) => variant.key === variantKey) || property.variants[0] || null
 }
 
 function loadVariantImages(property: any, tab: string, variantKey: string) {
-  const variant = getVariant(property, variantKey)
-  if (tab === 'furnished') {
-    return variant?.furnishedGallery || property.gallery || [property.image]
+  if (property.variants?.length) {
+    const variant = getVariant(property, variantKey)
+    if (tab === 'furnished') {
+      return variant?.furnishedGallery || property.gallery || [property.image]
+    }
+    return variant?.unfurnishedGallery || property.unfurnishedGallery || [property.unfurnishedImage || property.image]
   }
-  return variant?.unfurnishedGallery || property.unfurnishedGallery || [property.unfurnishedImage || property.image]
+
+  if (tab === 'furnished') {
+    return property.gallery || [property.image]
+  }
+  return property.unfurnishedGallery || [property.unfurnishedImage || property.image]
 }
 
 function selectVariant(variantKey: string) {
-  if (!modalProperty.value) return
+  if (!modalProperty.value?.variants?.length) return
   activeVariantKey.value = variantKey
   modalItems.value = loadVariantImages(modalProperty.value, activeTab.value, variantKey)
   modalIndex.value = 0
@@ -531,7 +536,7 @@ function selectVariant(variantKey: string) {
 
 function openModal(property: any, tab: string) {
   modalProperty.value = property
-  activeVariantKey.value = property.defaultVariant || property.variants?.[0]?.key || 'studio'
+  activeVariantKey.value = property.variants?.[0]?.key || ''
   modalTitle.value = property.title
   modalItems.value = loadVariantImages(property, tab, activeVariantKey.value)
   modalIndex.value = 0
