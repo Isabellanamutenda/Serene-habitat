@@ -332,7 +332,7 @@
 const heroProperty = {
   title: 'Riverside Suites',
   location: 'Westlands, Nairobi',
-  rent: 'Ksh 45,000',
+  rent: 'Ksh 20,000',
   bedrooms: 'Studio',
   bathrooms: '1',
   area: '34 sqm',
@@ -360,7 +360,7 @@ const summaryCards = [
     title: 'Studio apartment, polished and compact',
     badge: 'Most affordable',
     bedrooms: 'Studio',
-    rent: 'Ksh 45,000',
+    rent: 'Ksh 20,000',
     description: 'Warm textures, a smart kitchenette, and a calm sleeping nook make this the perfect entry-level furnished home in Westlands.'
   },
   {
@@ -368,7 +368,7 @@ const summaryCards = [
     title: '1 bedroom with a private lounge',
     badge: 'Best value',
     bedrooms: '1 Bed',
-    rent: 'Ksh 68,000',
+    rent: 'Ksh 45,000',
     description: 'A separate lounge, generous wardrobe space, and hotel-style furnishings create a refined everyday experience in the CBD.'
   }
 ]
@@ -379,7 +379,7 @@ const properties = [
     title: 'Riverside Suites',
     location: 'Westlands',
     units: 18,
-    rent: 'Ksh 45,000',
+    rent: 'Ksh 20,000',
     details: {
       totalRooms: 54,
       bedrooms: 36,
@@ -389,7 +389,7 @@ const properties = [
         { label: '1-bedroom units', count: 8 },
         { label: '2-bedroom units', count: 4 }
       ],
-      averageRent: 'Ksh 66,700',
+      averageRent: 'Ksh 20,000',
       occupiedUnits: 16,
       vacantUnits: 2
     },
@@ -420,7 +420,7 @@ const properties = [
     title: 'Downtown Plaza',
     location: 'CBD, Nairobi',
     units: 22,
-    rent: 'Ksh 68,000',
+    rent: 'Ksh 45,000',
     details: {
       totalRooms: 66,
       bedrooms: 44,
@@ -430,7 +430,7 @@ const properties = [
         { label: '1-bedroom units', count: 12 },
         { label: '2-bedroom units', count: 6 }
       ],
-      averageRent: 'Ksh 68,200',
+      averageRent: 'Ksh 45,000',
       occupiedUnits: 20,
       vacantUnits: 2
     },
@@ -461,7 +461,7 @@ const properties = [
     title: 'Green Valley',
     location: 'Kileleshwa, Nairobi',
     units: 14,
-    rent: 'Ksh 95,000',
+    rent: 'Ksh 65,000',
     details: {
       totalRooms: 42,
       bedrooms: 28,
@@ -471,7 +471,7 @@ const properties = [
         { label: '1-bedroom units', count: 7 },
         { label: '2-bedroom units', count: 4 }
       ],
-      averageRent: 'Ksh 70,000',
+      averageRent: 'Ksh 65,000',
       occupiedUnits: 13,
       vacantUnits: 1
     },
