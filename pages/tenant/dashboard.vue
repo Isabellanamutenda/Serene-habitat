@@ -56,7 +56,6 @@
           <div class="flex items-start justify-between gap-3">
             <div>
               <p class="text-sm font-semibold uppercase tracking-wide text-[#00696b]">Property location</p>
-              <h2 class="mt-1 text-xl font-semibold text-slate-900">Neighborhood access</h2>
             </div>
             <span class="rounded-full bg-[#e8f4f3] px-3 py-1 text-sm font-medium text-[#00696b]">
               Backend-ready
